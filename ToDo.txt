@@ -30,6 +30,9 @@ Puede ser una sola rama Development.
 https://es.wikipedia.org/wiki/S%C3%ADmbolos_de_ajedrez_en_Unicode
 print(u"\u2654")
 
+print(u"\u25a1")
+
+
 # Requisitos ############################################
 
 - Programacion orientada a objetos (con clases)
