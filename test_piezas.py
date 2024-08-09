@@ -3,16 +3,17 @@ from piezas import Peon, Caballo, Alfil, Torre, Dama, Rey, Espacio
 
 class TestPiezas(unittest.TestCase):
 
+    # Ya no se usan num ni color_casilla.
     def setUp(self):
-        self.__peon__ = Peon("P1", "blanca", (1, 7), u"\u2659", "negra", "Peon")
-        self.__peon2__ = Peon("P2", "blanca", (2, 7), u"\u2659", "blanca", "Peon", False)
-        self.__peon3__ = Peon("p1", "negra", (1, 2), u"\u2659", "negra", "Peon")
-        self.__peon4__ = Peon("p2", "negra", (2, 2), u"\u2659", "blanca", "Peon", False)
-        self.__caballo__ = Caballo("C1", "blanca", (2, 8), u"\u2658", "blanca", "Caballo", 1)
-        self.__alfil__ = Alfil("A1", "blanca", (3, 8), u"\u2657", "negra", "Alfil")
-        self.__torre__ = Torre("T1", "blanca", (1, 8), u"\u2656", "negra", "Torre")
-        self.__dama__ = Dama("D1", "blanca", (4, 8), u"\u2655", "blanca", "Dama")
-        self.__rey__ = Rey("R1", "blanca", (5, 8), u"\u2654", "negra", "Rey")
+        self.__peon__ = Peon("P1", "blanca", (1, 7), u"\u2659", "Peon")
+        self.__peon2__ = Peon("P2", "blanca", (2, 7), u"\u2659", "Peon", False)
+        self.__peon3__ = Peon("p1", "negra", (1, 2), u"\u2659", "Peon")
+        self.__peon4__ = Peon("p2", "negra", (2, 2), u"\u2659", "Peon", False)
+        self.__caballo__ = Caballo("C1", "blanca", (2, 8), u"\u2658", "Caballo", 1)
+        self.__alfil__ = Alfil("A1", "blanca", (3, 8), u"\u2657", "Alfil")
+        self.__torre__ = Torre("T1", "blanca", (1, 8), u"\u2656", "Torre")
+        self.__dama__ = Dama("D1", "blanca", (4, 8), u"\u2655", "Dama")
+        self.__rey__ = Rey("R1", "blanca", (5, 8), u"\u2654", "Rey")
         self.__casilla__ = Espacio("B", "blanca", u"\u25A1")
 
     # Testeo que las piezas tienen las posibilidades de movimientos iniciales.
@@ -55,20 +56,21 @@ class TestPiezas(unittest.TestCase):
         self.assertIn((5, 7), posibles_movimientos)
     
     # Testeo la función mover_pieza para una pieza normal y un peon.
+    # Ya no se usa color_casilla.
 
     def test_mover_pieza(self):
         x, y = (3, 6)
-        nuevo_color_casilla = 'negra'
-        self.__caballo__.mover((x, y), nuevo_color_casilla)
+        # nuevo_color_casilla = 'negra'
+        self.__caballo__.mover((x, y))
         # Me aseguro de que se hallan actualizado los atributos de la pieza.
-        self.assertEqual(self.__caballo__.__color_casilla__, nuevo_color_casilla)
+        # self.assertEqual(self.__caballo__.__color_casilla__, nuevo_color_casilla)
         self.assertEqual(self.__caballo__.__posicion__, (x, y))
     
     def test_mover_peon(self):
         x, y = (1, 6)
-        nuevo_color_casilla = 'negra'
-        self.__peon__.mover((x, y), nuevo_color_casilla)
-        self.assertEqual(self.__peon__.__color_casilla__, nuevo_color_casilla)
+        # nuevo_color_casilla = 'negra'
+        self.__peon__.mover((x, y))
+        # self.assertEqual(self.__peon__.__color_casilla__, nuevo_color_casilla)
         self.assertEqual(self.__peon__.__posicion__, (x, y))
 
 if __name__ == "__main__":
