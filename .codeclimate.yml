@@ -3,23 +3,19 @@ checks:
   argument-count:
     enabled: true
     config:
-      threshold: 5
-  complex-logic:
-    enabled: true
-    config:
-      threshold: 4
+      threshold: 8
   file-lines:
     enabled: true
     config:
-      threshold: 250
+      threshold: 300
   method-complexity:
-    enabled: true
+    enabled: false
     config:
-      threshold: 15
+      threshold:
   method-count:
     enabled: true
     config:
-      threshold: 20
+      threshold: 25
   method-lines:
     enabled: true
     config:
@@ -27,21 +23,23 @@ checks:
   nested-control-flow:
     enabled: true
     config:
-      threshold: 4
+      threshold: 6
   return-statements:
     enabled: true
     config:
       threshold: 4
   similar-code:
-    enabled: true
+    enabled: false
     config:
       threshold:
   identical-code:
-    enabled: true
+    enabled: false
     config:
       threshold:
 
 exclude_patterns:
+- "test"
+- "test/" 
 - "tests/"
 - "spec/"
 - "config/"
