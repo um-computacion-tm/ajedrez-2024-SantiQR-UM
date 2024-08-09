@@ -6,6 +6,12 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1] - 09-08-2024
+
+### Eliminado
+
+- Quitado atributo `color_casilla` de la clase `Pieza`.
+
 ## [1.0] - 08-08-2024 - Día tres y fin :)
 
 ### Añadido
@@ -41,6 +47,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 - Archivo `code/ideas.py` eliminado
 - Archivo `ToDo.txt` eliminado
+- Atributo `num` de la clase `Pieza`.
 
 ## [0.2] - 07-08-2024 - Día dos
 
