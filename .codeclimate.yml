@@ -42,6 +42,8 @@ checks:
       threshold:
 
 exclude_patterns:
+- "test"
+- "test/" 
 - "tests/"
 - "spec/"
 - "config/"
