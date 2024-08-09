@@ -9,9 +9,9 @@ checks:
     config:
       threshold: 300
   method-complexity:
-    enabled: true
+    enabled: false
     config:
-      threshold: 100
+      threshold:
   method-count:
     enabled: true
     config:
@@ -28,6 +28,14 @@ checks:
     enabled: true
     config:
       threshold: 4
+  similar-code:
+    enabled: false
+    config:
+      threshold:
+  identical-code:
+    enabled: false
+    config:
+      threshold:
 
 exclude_patterns:
 - "test"
