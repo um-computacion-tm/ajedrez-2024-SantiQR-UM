@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from tablero import Tablero
-from piezas import Pieza, Espacio, Peon, Torre, Caballo
-from BD import BD
+from juego.tablero import Tablero
+from juego.piezas import Pieza, Espacio, Peon, Torre, Caballo
+from juego.BD import BD
 import io
 import sys
 

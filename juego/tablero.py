@@ -1,5 +1,5 @@
-from piezas import Peon, Caballo, Alfil, Torre, Dama, Rey, Pieza, Espacio
-from BD import BD
+from juego.piezas import Peon, Caballo, Alfil, Torre, Dama, Rey, Pieza, Espacio
+from juego.BD import BD
 
 class Tablero:
     def __init__(self):
