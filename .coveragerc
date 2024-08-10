@@ -1,13 +1,7 @@
 [run]
 source =
-    interfaz
-    piezas
-    tablero
-    BD
-    test_interfaz
-    test_piezas
-    test_tablero
-    test_BD
+    juego
+    test
 omit =
     venv/*
     */test*

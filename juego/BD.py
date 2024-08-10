@@ -1,4 +1,4 @@
-from piezas import Espacio
+from juego.piezas import Espacio
 
 class BD():
     def __init__(self):

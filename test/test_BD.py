@@ -1,7 +1,7 @@
 import unittest
-from BD import BD
-from piezas import Peon
-from piezas import Espacio
+from juego.BD import BD
+from juego.piezas import Peon
+from juego.piezas import Espacio
 
 class TestBD(unittest.TestCase):
 

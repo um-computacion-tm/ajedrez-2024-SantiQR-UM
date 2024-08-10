@@ -8,6 +8,10 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ## [1.1] - 09-08-2024
 
+## Cambiado
+
+- Modifiqué la estructura de los archivos para que se dividan en módulos.
+
 ## Corregido
 
 - Archivo `README.md` corregido.

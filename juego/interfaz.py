@@ -1,4 +1,4 @@
-from tablero import Tablero
+from juego.tablero import Tablero
 
 def main():
     tablero = Tablero()

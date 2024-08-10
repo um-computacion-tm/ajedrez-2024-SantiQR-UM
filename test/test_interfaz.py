@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from interfaz import main
+from juego.interfaz import main
 
 class TestInterfaz(unittest.TestCase):
 
