@@ -8,26 +8,26 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 
 ## [1.2] - 10-08-2024
 
-## Añadido
+### Añadido
 
 - Instrucciones de ejecución en el archivo `README.md`.
 
-## Cambiado
+### Cambiado
 
 - Dividí la función `obtener_piezas_moviles` en dos funciones y una de ellas la mandé a `interfaz.py`.
 - Diseño del `README.md` ligeramente modificado.
 
-## Corregido
+### Corregido
 
 - Tests corregidos en base a los cambios realizados.
 
 ## [1.1] - 09-08-2024
 
-## Cambiado
+### Cambiado
 
 - Modifiqué la estructura de los archivos para que se dividan en módulos.
 
-## Corregido
+### Corregido
 
 - Archivo `README.md` corregido.
 - Archivo `CHANGELOG.md` actualizado y corregido.
