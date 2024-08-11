@@ -28,7 +28,7 @@ PYTHONPATH=/path/to/the/folder/ajedrez-2024-SantiQR-UM python juego/interfaz.py
 ```
 - Remplazando `/path/to/the/folder/` por la ruta donde se encuentra el proyecto.
 
-#### 4. Necesitan "Python 3.x".
+#### 3. Necesitan "Python 3.x".
 
 ## :black_nib:  Nota del autor
 
