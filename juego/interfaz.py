@@ -52,7 +52,6 @@ def main():
 def main_2(self, color):
     
     while True:
-        print("\nEJECUTADO\n")
         # Acá está la lógica para mover piezas
         self, lista_piezas, lista_instancias, lista_posibilidades = \
             self.obtener_piezas_movibles(color)
@@ -104,7 +103,7 @@ def main_2(self, color):
         print(f"{count}. Atrás") # Opción extra para volver atrás.
 
         # Para depurar:
-        print("count: ",count)
+        # print("count: ",count)
         
         # Pido la opción de la instancia, si falla, vuelve al bucle.
         try:
@@ -138,13 +137,11 @@ def main_2(self, color):
                 print("\nOpción no válida.\n")
                 continue
             
-            print("\nMOVIENDO PIEZA\n")
             # Muevo la pieza.
             movimiento = self.mover_pieza(seleccion, nueva_posicion, posibilidades_finales)  
             if movimiento:
-                print("\nENTRO POR EL RETURN\n")
                 return # Si se completa el movimiento, salgo del bucle.
-            print("\nNO ENTRO POR EL RETURN\n")
+
 
 
 if __name__ == "__main__":

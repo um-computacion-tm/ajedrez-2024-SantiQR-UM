@@ -15,8 +15,10 @@ Voy a decirles lo básico, los movimientos de las fichas son las mismas que en o
 
 Bueno, la forma de ganar es que un jugador se coma todas las piezas del otro, o que se le acaben las posibilidades de mover a alguno o a otro (re largo...), así que les agregue una funcionalidad para que en cualquier momento lo puedan empatar y decidir quien ganó haciendo piedra, papel o tijera... No me jodan.
 
-- Para hacerlo funcionar ejecuten "interfaz.py".
-- Necesitan Python 3.8
+- Para hacerlo funcionar ejecuten `interfaz.py`.
+- Si les salta `ModuleNotFoundError`, usando vscode ejecuten `interfaz.py` usando la opción `Python Debugger: Debug using launch.json`. 
+- En caso de no funcionar, desde la terminal, ejecuten `PYTHONPATH=/path/to/the/folder/ajedrez-2024-SantiQR-UM python juego/interfaz.py`, remplazando `/path/to/the/folder/` por la ruta donde se encuentra el proyecto.
+- Necesitan "Python 3.x".
 
 ## :black_nib:  Nota del autor
 
