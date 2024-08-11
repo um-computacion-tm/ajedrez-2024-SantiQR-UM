@@ -1,5 +1,5 @@
-from juego.piezas import Peon, Caballo, Alfil, Torre, Dama, Rey, Pieza, Espacio
-from juego.BD import BD
+from juego.piezas import *
+from juego.BD import *
 
 class Tablero:
     def __init__(self):
@@ -116,173 +116,93 @@ class Tablero:
                     print(casilla, end=' ')
             print()
 
-    def obtener_piezas_movibles(self, BD_piezas, color): # Traigo BD_piezas solo para acortar codigo.
-        # Devuelvo una lista de piezas de nombres de piezas que pueden moverse para el color dado.
+    def obtener_piezas_movibles(self, color):
+        # Devuelvo una lista de nombres de piezas que pueden moverse para el color dado.
         # Luego una lista de las instancias de esas piezas.
         # Y después pido la posición a la que se quiere avanzar.
-        while True:
+
+        
+        lista_piezas = [] # Lista para los nombres las piezas que voy a mostrar.
+        lista_instancias = [] # Lista para las instancias de las piezas que voy a mostrar.
+        lista_posibilidades = [] # Lista para las posibilidades de cada una de las piezas.
+        
+        # Para depurar:
+        # print(BD_piezas.__base_datos__)
+        
+        # Para las 16 piezas del jugador:
+        for i in range(1, 17):
             
-            lista_piezas = [] # Lista para los nombres las piezas que voy a mostrar.
-            lista_instancias = [] # Lista para las instancias de las piezas que voy a mostrar.
-            lista_posibilidades = [] # Lista para las posibilidades de cada una de las piezas.
+            if i <= 8:
+            ## Para los peones.
+                cant = i
+                if color == "blanca":
+                    letra = "P"
+                else:
+                    letra = "p"
+            
+            elif i <= 10:
+            ## Para los caballos.
+                cant = i - 8
+                if color == "blanca":
+                    letra = "C"
+                else:
+                    letra = "c"
+            
+            elif i <= 12:
+            ## Para los alfiles.
+                cant = i - 10
+                if color == "blanca":
+                    letra = "A"
+                else:
+                    letra = "a"
+
+            elif i <= 14:
+            ## Para las torres.
+                cant = i - 12
+                if color == "blanca":
+                    letra = "T"
+                else:
+                    letra = "t"
+            
+            elif i == 15:
+            ## Para la dama.
+                cant = i - 14
+                if color == "blanca":
+                    letra = "D"
+                else:
+                    letra = "d"
+            
+            elif i == 16:
+            ## Para el rey.
+                cant = i - 15
+                if color == "blanca":
+                    letra = "R"
+                else:
+                    letra = "r"
+            
+            # Reviso que piezas puedo mostrar en base a cuales son movibles y sus posibilidades.
+            resultado, movible, posibilidades = self.instancias_piezas(self.__BD_piezas__, letra, cant)
             
             # Para depurar:
-            # print(BD_piezas.__base_datos__)
+            # print(resultado, " : ", movible)
+
+            if movible == False:
+                continue # Volver a preguntar por el resto de piezas.
             
-            # Para las 16 piezas del jugador:
-            for i in range(1, 17):
-                
-                if i <= 8:
-                ## Para los peones.
-                    cant = i
-                    if color == "blanca":
-                        letra = "P"
-                    else:
-                        letra = "p"
-                
-                elif i <= 10:
-                ## Para los caballos.
-                    cant = i - 8
-                    if color == "blanca":
-                        letra = "C"
-                    else:
-                        letra = "c"
-                
-                elif i <= 12:
-                ## Para los alfiles.
-                    cant = i - 10
-                    if color == "blanca":
-                        letra = "A"
-                    else:
-                        letra = "a"
+            # Si se puede mover, añado a la lista de piezas, instancias y posibilidades.
+            # Que solo se pueda añadir una vez en cada una.
+            if resultado.__nom__ not in lista_piezas:
+                lista_piezas.append(resultado.__nom__)
 
-                elif i <= 14:
-                ## Para las torres.
-                    cant = i - 12
-                    if color == "blanca":
-                        letra = "T"
-                    else:
-                        letra = "t"
-                
-                elif i == 15:
-                ## Para la dama.
-                    cant = i - 14
-                    if color == "blanca":
-                        letra = "D"
-                    else:
-                        letra = "d"
-                
-                elif i == 16:
-                ## Para el rey.
-                    cant = i - 15
-                    if color == "blanca":
-                        letra = "R"
-                    else:
-                        letra = "r"
-                
-                # Reviso que piezas puedo mostrar en base a cuales son movibles y sus posibilidades.
-                resultado, movible, posibilidades = self.instancias_piezas(BD_piezas, letra, cant)
-                
-                # Para depurar:
-                # print(resultado, " : ", movible)
-
-                if movible == False:
-                    continue # Volver a preguntar por el resto de piezas.
-                
-                # Si se puede mover, añado a la lista de piezas, instancias y posibilidades.
-                # Que solo se pueda añadir una vez en cada una.
-                if resultado.__nom__ not in lista_piezas:
-                    lista_piezas.append(resultado.__nom__)
-
-                if resultado not in lista_instancias:
-                    lista_instancias.append(resultado)
-                    lista_posibilidades.append(posibilidades)
+            if resultado not in lista_instancias:
+                lista_instancias.append(resultado)
+                lista_posibilidades.append(posibilidades)
             
-            # Hago un print del tablero para mostrarlo antes de dar opciones.
-            # Lo puse acá para poder verlo cada vez que se repite el bucle.
-            print()
-            self.imprimir_tablero()
+        # Acá hice la división de la función de obtener_piezas_moviles. La otra parte la mando
+        # a interfaz.py ya que tiene más sentido que el texto se ejecute en la parte de la
+        # interfaz.
 
-            # Muestro los nombres de las piezas que se pueden mover, no las instancias.
-            print("\nOpciones:")
-            
-            k = 1
-            for pieza in lista_piezas:
-                print(f"{k}. {pieza}")
-                k += 1
-            
-            # Pido la opción, si falla, vuelve al bucle.
-            try:
-                opcion = int(input("\nSeleccione una opción: "))
-            
-            except ValueError:
-                print("\nOpción no válida.\n")
-                continue
-           
-            if opcion > k-1 or opcion == '' or opcion == 0:
-                print("\nOpción no válida.\n")
-                continue
-            
-            # Muestro las instancias de la pieza que elegí, ¡solo las que se pueden mover!
-            print("\nInstancias de la pieza:")
-
-            count = 1
-            elegir = [] # Uso esta lista para guardar los índices de la lista de instancias que se 
-                    # pueden mover para luego cuando la elija pueda usar esta lista y referenciarla.
-            for z in range(len(lista_instancias)):
-                
-                # lista_piezas[opcion-1] es el nombre de la pieza elegida.
-                # lista_instancias[z].__nom__ es el nombre de la instancia de la pieza.
-                if lista_piezas[opcion-1] == lista_instancias[z].__nom__:
-                    
-                    # Convierto las coordenadas de la pieza a la notación de la tabla.
-                    a, b = lista_instancias[z].__posicion__
-                    x, y = self.conversion_coordenadas(a, b) # (Función cerca del final).
-
-                    print(f"{count}. {lista_instancias[z].__nom__} {x}{y}")
-                    elegir.append(z)
-                    count += 1
-            print(f"{count}. Atrás") # Opción extra para volver atrás.
-
-            # Para depurar:
-            #print("count: ",count)
-            
-            # Pido la opción de la instancia, si falla, vuelve al bucle.
-            try:
-                opcion_2 = int(input("\nSeleccione una pieza: ")) # Para elegir una pieza o salir
-
-            except ValueError:
-                print("\nOpción no válida.\n")
-                continue
-
-            if opcion_2 > count or opcion_2 == '' or opcion_2 == 0:
-                print("\nOpción no válida.\n")
-                continue
-            
-            if opcion_2 == count:
-                continue  # Salir para volver a preguntar por la pieza.
-
-            else: 
-                # Elijo mover una pieza:
-                # Obtengo el índice de la instancia de la pieza de la lista elegir.
-                nro_instancia = elegir[opcion_2-1] 
-                # Obtengo las posibilidades de esa instancia.
-                posibilidades_finales = lista_posibilidades[nro_instancia] 
-                # Uso el método 'search' para buscarla (también uso el metodo var() de la pieza).
-                seleccion = BD_piezas.search(lista_instancias[nro_instancia].var())
-                
-                # Pido la nueva posición.
-                nueva_posicion = input("Ingrese la nueva posición (ej. 'a3'): ") 
-            
-                # Para no enviar valores vacíos.
-                if nueva_posicion == '':
-                    print("\nOpción no válida.\n")
-                    continue
-                
-                # Muevo la pieza.
-                movimiento = self.mover_pieza(seleccion, nueva_posicion, posibilidades_finales)  
-                if movimiento:
-                    return # Si se completa el movimiento, salgo del bucle.
+        return self, lista_piezas, lista_instancias, lista_posibilidades
 
 
     def instancias_piezas(self, BD_piezas, letra, i):

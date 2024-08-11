@@ -1,5 +1,5 @@
 import unittest
-from juego.piezas import Peon, Caballo, Alfil, Torre, Dama, Rey, Espacio
+from juego.piezas import *
 
 class TestPiezas(unittest.TestCase):
 
