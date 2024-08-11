@@ -1,4 +1,5 @@
-from juego.piezas import Espacio
+# Si se quiere usar la última función de esta clase, se puede usar esto:
+# from juego.piezas import Espacio 
 
 class BD():
     def __init__(self):

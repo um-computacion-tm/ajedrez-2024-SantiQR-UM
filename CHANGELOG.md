@@ -6,6 +6,16 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2] - 10-08-2024
+
+## Cambiado
+
+- Dividí la función `obtener_piezas_moviles` en dos funciones y una de ellas la mandé a `interfaz.py`.
+
+## Corregido
+
+- Tests corregidos en base a los cambios realizados.
+
 ## [1.1] - 09-08-2024
 
 ## Cambiado
