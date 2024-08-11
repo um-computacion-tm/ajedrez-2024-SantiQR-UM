@@ -15,6 +15,7 @@ y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.
 ## Cambiado
 
 - Dividí la función `obtener_piezas_moviles` en dos funciones y una de ellas la mandé a `interfaz.py`.
+- Diseño del `README.md` ligeramente modificado.
 
 ## Corregido
 
