@@ -15,10 +15,20 @@ Voy a decirles lo básico, los movimientos de las fichas son las mismas que en o
 
 Bueno, la forma de ganar es que un jugador se coma todas las piezas del otro, o que se le acaben las posibilidades de mover a alguno o a otro (re largo...), así que les agregue una funcionalidad para que en cualquier momento lo puedan empatar y decidir quien ganó haciendo piedra, papel o tijera... No me jodan.
 
-- Para hacerlo funcionar ejecuten `interfaz.py`.
-- Si les salta `ModuleNotFoundError`, usando vscode ejecuten `interfaz.py` usando la opción `Python Debugger: Debug using launch.json`. 
-- En caso de no funcionar, desde la terminal, ejecuten `PYTHONPATH=/path/to/the/folder/ajedrez-2024-SantiQR-UM python juego/interfaz.py`, remplazando `/path/to/the/folder/` por la ruta donde se encuentra el proyecto.
-- Necesitan "Python 3.x".
+### Para hacerlo funcionar:
+
+#### 1. Ejecuten `interfaz.py`.
+
+#### 2. Si les salta `ModuleNotFoundError`:
+
+- Usando vscode ejecuten `interfaz.py` usando la opción `Python Debugger: Debug using launch.json`. 
+- En caso de no funcionar, desde la __terminal__, ejecuten: 
+```
+PYTHONPATH=/path/to/the/folder/ajedrez-2024-SantiQR-UM python juego/interfaz.py
+```
+- Remplazando `/path/to/the/folder/` por la ruta donde se encuentra el proyecto.
+
+#### 4. Necesitan "Python 3.x".
 
 ## :black_nib:  Nota del autor
 
@@ -27,13 +37,13 @@ Sí, soy un comilón... Era un proyecto para hacer en 3 meses, pero no tenía na
 De todas formas, espero que lo disfruten. ¿Suerte?, supongo... :smiley:
 
 
-# :bar_chart:  Testeos
+## :bar_chart:  Testeos
 
-## Circle CI
+### Circle CI
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/um-computacion-tm/ajedrez-2024-SantiQR-UM/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/um-computacion-tm/ajedrez-2024-SantiQR-UM/tree/main)
 
-## Maintainability with Code Climate
+### Maintainability with Code Climate
 [![Maintainability](https://api.codeclimate.com/v1/badges/71589bfc701ea01df930/maintainability)](https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-SantiQR-UM/maintainability)
 
-## Test Coverage with Code Climate
+### Test Coverage with Code Climate
 [![Test Coverage](https://api.codeclimate.com/v1/badges/71589bfc701ea01df930/test_coverage)](https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-SantiQR-UM/test_coverage)
