@@ -6,6 +6,18 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3] - 13-08-2024
+
+### Añadido
+
+- Archivo `Dockerfile` creado.
+
+### Cambiado
+
+- Readme actualizado.
+- Cambiada la forma en la que se acceden a los modulos, ahora es con `ipdb`.
+- Para ejecutar interfaz, se debe ejecutar `python -m juego.interfaz`.
+
 ## [1.2] - 10-08-2024
 
 ### Añadido

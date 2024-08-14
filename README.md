@@ -17,18 +17,20 @@ Bueno, la forma de ganar es que un jugador se coma todas las piezas del otro, o 
 
 ### Para hacerlo funcionar:
 
-#### 1. Ejecuten `interfaz.py`.
+#### 1. Instalen `requirements.txt`.
 
-#### 2. Si les salta `ModuleNotFoundError`:
-
-- Usando vscode ejecuten `interfaz.py` usando la opción `Python Debugger: Debug using launch.json`. 
-- En caso de no funcionar, desde la __terminal__, ejecuten: 
 ```
-PYTHONPATH=/path/to/the/folder/ajedrez-2024-SantiQR-UM python juego/interfaz.py
+pip install -r requirements.txt
 ```
-- Remplazando `/path/to/the/folder/` por la ruta donde se encuentra el proyecto.
 
-#### 4. Necesitan "Python 3.x".
+#### 2. Ejecuten los siguientes comandos desde la __terminal__:
+
+```
+docker buildx build -t ajedrez-santiqr .
+docker run -i ajedrez-santiqr
+```
+
+#### 3. Necesitan _Python 3.x_.
 
 ## :black_nib:  Nota del autor
 
@@ -47,3 +49,17 @@ De todas formas, espero que lo disfruten. ¿Suerte?, supongo... :smiley:
 
 ### Test Coverage with Code Climate
 [![Test Coverage](https://api.codeclimate.com/v1/badges/71589bfc701ea01df930/test_coverage)](https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-SantiQR-UM/test_coverage)
+
+
+
+## :sob:  Falta hacer:
+
+- TDD + Solid + CodeClimate + Docker
+
+- Restructuración del código para cumplir CodeClimate
+
+- Archivo ajedrez.py
+
+- Todos los prints en interfaz.py
+
+- Nuevos tests
