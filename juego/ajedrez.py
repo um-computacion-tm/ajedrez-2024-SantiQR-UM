@@ -8,8 +8,10 @@ class Ajedrez:
         self.__lista_instancias__ = None
         self.__lista_posibilidades__ = None
 
+
     def cambiar_turno(self):
         self.__turno__ = "negra" if self.__turno__ == "blanca" else "blanca"
+
 
     def jugar(self):
         
@@ -24,3 +26,15 @@ class Ajedrez:
         self.__lista_posibilidades__ = lista_posibilidades
 
         return self
+    
+    
+    def mover_ajedrez(self, seleccion, nueva_posicion_str, \
+                      nueva_posicion_int, vieja_posicion, posibilidades_finales):
+        
+        movimiento, string_movimiento = self.__tablero__.mover_pieza(seleccion, nueva_posicion_str, \
+                    nueva_posicion_int,vieja_posicion, posibilidades_finales)
+        return self, movimiento, string_movimiento
+
+
+    def imprimir_tablero_ajedrez(self):
+        print(self.__tablero__.__str__())
