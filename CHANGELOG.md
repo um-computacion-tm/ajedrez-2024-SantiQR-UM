@@ -6,7 +6,13 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.7] - 17-08-2024
+## [1.8] - 18-08-2024
+
+### Corregido
+
+- Corregidas ubicaciones de los prints en `interfaz.py`.
+
+## [1.7] - 17-08-2024
 
 ### Añadido
 

@@ -13,7 +13,7 @@ tengo ganas de hacerlas, je.
 
 Voy a decirles lo básico, los movimientos de las fichas son las mismas que en original, pero se le agrega... No... Se le quita que no hay jaque, ni jaque mate, ni reglas especiales como enroque, coronación, bla bla bla... Que juego más aburrido... Me estoy arrepintiendo...
 
-Bueno, la forma de ganar es que un jugador se coma todas las piezas del otro, o que se le acaben las posibilidades de mover a alguno o a otro (re largo...), así que les agregue una funcionalidad para que en cualquier momento lo puedan empatar y decidir quien ganó haciendo piedra, papel o tijera... No me jodan.
+Bueno, la forma de ganar es que un jugador se coma el rey del otro, o que se le acaben las posibilidades de mover a cualquiera, es decir, tablas. (Re largo...), así que les agregue una funcionalidad para que en cualquier momento lo puedan empatar y decidir quien ganó haciendo piedra, papel o tijera... No me jodan.
 
 ### Para hacerlo funcionar:
 
@@ -49,17 +49,3 @@ De todas formas, espero que lo disfruten. ¿Suerte?, supongo... :smiley:
 
 ### Test Coverage with Code Climate
 [![Test Coverage](https://api.codeclimate.com/v1/badges/71589bfc701ea01df930/test_coverage)](https://codeclimate.com/github/um-computacion-tm/ajedrez-2024-SantiQR-UM/test_coverage)
-
-
-
-## :sob:  Falta hacer:
-
-- TDD + Solid + CodeClimate + Docker
-
-- Restructuración del código para cumplir CodeClimate
-
-- Archivo ajedrez.py
-
-- Todos los prints en interfaz.py
-
-- Nuevos tests
