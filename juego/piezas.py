@@ -13,13 +13,11 @@ class Casilla:
 class Espacio(Casilla):
     pass
 
-# Ya no sirven num ni color_casilla.
+
 class Pieza(Casilla):
     def __init__(self, var, color, posicion, s, nom, vive = True):
         super().__init__(var, color, s)
         self.__posicion__ = posicion
-        # self.__color_casilla__ = color_casilla
-        # self.__num__ = num
         self.__vive__ = vive
         self.__nom__ = nom # Nombre de la pieza.
 
@@ -30,164 +28,110 @@ class Pieza(Casilla):
     # Actualiza la posición de la pieza.
     def mover(self, nueva_posicion):
         self.__posicion__ = nueva_posicion
-        # self.__color_casilla__ = nuevo_color_casilla
+
+
+    # Función común para calcular movimientos basados en direcciones y movimientos individuales.
+    def calcular_movimientos(self, posicion, movimientos, limite = False):
+        # Calculo las posiciones posibles basadas en movimientos o direcciones dadas.
+        # Si 'limite' es False, recorre todas las direcciones hasta que llegue al borde del tablero.
+        # Si 'limite' es True, solo calcula un paso en la dirección dada.
+        posiciones_posibles = []
+        x, y = posicion
+
+        for dx, dy in movimientos:
+            nueva_x, nueva_y = x, y
+            while True:
+                nueva_x += dx
+                nueva_y += dy
+                if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
+                    posiciones_posibles.append((nueva_x, nueva_y))
+                    # Si el movimiento tiene un solo paso (como en Rey o Caballo).
+                    if limite:  
+                        break
+                else:
+                    break
+
+        return posiciones_posibles
 
 
 class Peon(Pieza):
     def __init__(self, var, color, posicion, s, nom, primera_posicion = True):
         super().__init__(var, color, posicion, s, nom)
-        self.__primera_posicion__ = primera_posicion # Indica si es la primera vez que se mueve la pieza.
-     
+        # Indica si es la primera vez que se mueve la pieza.
+        self.__primera_posicion__ = primera_posicion  
+
     def movimientos_posibles(self):
-        # Lógica para los movimientos de los peones.
+        # Combino los movimientos de avance y captura para el peón.
+        return self.movimientos_avance() + self.movimientos_captura()
+
+    def movimientos_avance(self):
         posiciones_posibles = []
         x, y = self.__posicion__
-        
-        if self.__color__ == "blanca":
 
-            # Movimiento hacia adelante (restar en la posición y).
-            if self.__primera_posicion__:
+        # Acá no uso la función 'calcular_movimientos' porque los movimientos son específicos.
+        # Defino el avance según el color.
+        avance_doble, avance_simple = (-2, -1) if self.__color__ == "blanca" else (2, 1)
 
-                # Puede moverse 1 o 2 casillas hacia adelante si está en la posición inicial.
-                if 1 <= y - 2 <= 8:
-                    posiciones_posibles.append((x, y - 2))
-                if 1 <= y - 1 <= 8:
-                    posiciones_posibles.append((x, y - 1))
+        # Avance inicial de dos casillas.
+        if self.__primera_posicion__ and 1 <= y + avance_doble <= 8:
+            posiciones_posibles.append((x, y + avance_doble))
 
-            else:
-                # Puede moverse una casilla.
-                if 1 <= y - 1 <= 8:
-                    posiciones_posibles.append((x, y - 1))
+        # Avance simple.
+        if 1 <= y + avance_simple <= 8:
+            posiciones_posibles.append((x, y + avance_simple))
 
-            # Captura diagonal.
-            if 1 <= x - 1 <= 8 and 1 <= y - 1 <= 8:
-                posiciones_posibles.append((x - 1, y - 1))
-            if 1 <= x + 1 <= 8 and 1 <= y - 1 <= 8:
-                posiciones_posibles.append((x + 1, y - 1))
-
-        elif self.__color__ == "negra":
-
-            # Movimiento hacia adelante (sumar en la posición y).
-            if self.__primera_posicion__:
-
-                # Puede moverse 1 o 2 casillas hacia adelante si está en la posición inicial.
-                if 1 <= y + 2 <= 8:
-                    posiciones_posibles.append((x, y + 2))
-                if 1 <= y + 1 <= 8:
-                    posiciones_posibles.append((x, y + 1))
-
-            else:
-                # Puede moverse una casilla.
-                if 1 <= y + 1 <= 8:
-                    posiciones_posibles.append((x, y + 1))
-
-            # Captura diagonal.
-            if 1 <= x - 1 <= 8 and 1 <= y + 1 <= 8:
-                posiciones_posibles.append((x - 1, y + 1))
-            if 1 <= x + 1 <= 8 and 1 <= y + 1 <= 8:
-                posiciones_posibles.append((x + 1, y + 1))
-        
         return posiciones_posibles
-    
-    # El método esta repetido porque acá especificamente cambia el atributo 'primera_posicion'.
+
+    def movimientos_captura(self):
+        # Defino los movimientos diagonales según el color.
+        movimientos = [(-1, -1), (1, -1)] if self.__color__ == "blanca" else [(-1, 1), (1, 1)]
+        # En este caso uso la función 'calcular_movimientos' con 'limite' en True.
+        limite = True
+        return self.calcular_movimientos(self.__posicion__, movimientos, limite)
+
+    # La función mover, pero más específica para el peón. Ya que cambia el atributo 
+    # 'primera_posicion'.
     def mover(self, nueva_posicion):
         self.__posicion__ = nueva_posicion
-        # self.__color_casilla__ = nuevo_color_casilla
         self.__primera_posicion__ = False
 
 
 class Caballo(Pieza):
     def movimientos_posibles(self):
-        posiciones_posibles = []
-        x, y = self.__posicion__
-        
         movimientos = [
             (2, 1), (2, -1), (-2, 1), (-2, -1),
             (1, 2), (1, -2), (-1, 2), (-1, -2)
         ]
-
-        for dx, dy in movimientos:
-            nueva_x, nueva_y = x + dx, y + dy
-            if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
-                posiciones_posibles.append((nueva_x, nueva_y))
-        
-        return posiciones_posibles
+        limite = True
+        return self.calcular_movimientos(self.__posicion__, movimientos, limite)
 
 
 class Alfil(Pieza):
     def movimientos_posibles(self):
-        posiciones_posibles = []
-        x, y = self.__posicion__
-
         direcciones = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
-
-        for dx, dy in direcciones:
-            nueva_x, nueva_y = x, y
-            while True:
-                nueva_x += dx
-                nueva_y += dy
-                if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
-                    posiciones_posibles.append((nueva_x, nueva_y))
-                else:
-                    break
-
-        return posiciones_posibles
+        return self.calcular_movimientos(self.__posicion__, direcciones)
 
 
 class Torre(Pieza):
     def movimientos_posibles(self):
-        posiciones_posibles = []
-        x, y = self.__posicion__
-
         direcciones = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-        for dx, dy in direcciones:
-            nueva_x, nueva_y = x, y
-            while True:
-                nueva_x += dx
-                nueva_y += dy
-                if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
-                    posiciones_posibles.append((nueva_x, nueva_y))
-                else:
-                    break
-
-        return posiciones_posibles
+        return self.calcular_movimientos(self.__posicion__, direcciones)
 
 
 class Dama(Pieza):
     def movimientos_posibles(self):
-        posiciones_posibles = []
-        x, y = self.__posicion__
-
-        direcciones = [(1, 0), (-1, 0), (0, 1), (0, -1),
-                       (1, 1), (1, -1), (-1, 1), (-1, -1)]
-
-        for dx, dy in direcciones:
-            nueva_x, nueva_y = x, y
-            while True:
-                nueva_x += dx
-                nueva_y += dy
-                if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
-                    posiciones_posibles.append((nueva_x, nueva_y))
-                else:
-                    break
-
-        return posiciones_posibles
+        direcciones = [
+            (1, 0), (-1, 0), (0, 1), (0, -1),
+            (1, 1), (1, -1), (-1, 1), (-1, -1)
+        ]
+        return self.calcular_movimientos(self.__posicion__, direcciones)
 
 
 class Rey(Pieza):
     def movimientos_posibles(self):
-        posiciones_posibles = []
-        x, y = self.__posicion__
-
         movimientos = [
             (1, 0), (-1, 0), (0, 1), (0, -1),
             (1, 1), (1, -1), (-1, 1), (-1, -1)
         ]
-
-        for dx, dy in movimientos:
-            nueva_x, nueva_y = x + dx, y + dy
-            if 1 <= nueva_x <= 8 and 1 <= nueva_y <= 8:
-                posiciones_posibles.append((nueva_x, nueva_y))
-
-        return posiciones_posibles
+        limite = True
+        return self.calcular_movimientos(self.__posicion__, movimientos, limite)
