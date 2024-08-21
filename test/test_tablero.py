@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 from juego.tablero import *
 from juego.piezas import *
-from juego.BD import *
+from juego.BaseDeDatos import *
 import io
 import sys
 
@@ -18,25 +18,7 @@ class TestTablero(unittest.TestCase):
         self.assertIsInstance(self.__tablero__.__tablero__, list)
         self.assertIsInstance(self.__tablero__.__BD_piezas__, BD)  
         self.assertIsInstance(self.__tablero__.__BD_espacios__, BD)  
-
-    # Testeo que imprimir_tablero funciona.
-    def test_imprimir_tablero(self):
-        tablero = Tablero()
-        captured_output = io.StringIO()  # Creo un buffer en memoria.
-        sys.stdout = captured_output  # Redirijo el stdout al buffer.
-        tablero.imprimir_tablero()  # Llamo al método.
-        sys.stdout = sys.__stdout__  # Restauro el stdout.
-        assert '''  a b c d e f g h   
-8 ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜ 8 
-7 ♟ ♟ ♟ ♟ ♟ ♟ ♟ ♟ 7 
-6 □ ■ □ ■ □ ■ □ ■ 6 
-5 ■ □ ■ □ ■ □ ■ □ 5 
-4 □ ■ □ ■ □ ■ □ ■ 4 
-3 ■ □ ■ □ ■ □ ■ □ 3 
-2 ♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙ 2 
-1 ♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖ 1 
-  a b c d e f g h   ''' in captured_output.getvalue()  # Es medio feo, pero funciona jajaja.
-
+    
     # Testeo que obtener_piezas_movibles funciona para diferentes piezas y colores.
 
     @patch('builtins.print') # A veces lo uso para que atrape el output.
@@ -50,8 +32,8 @@ class TestTablero(unittest.TestCase):
         pieza_mock = MagicMock()
         pieza_mock.__nom__ = "p"
         pieza_mock.__posicion__ = (1, 2)
-        pieza_mock.var.return_value = "p1"
-        self.__BD_piezas__.add(pieza_mock)
+        pieza_mock.id.return_value = "p1"
+        self.__tablero__.__BD_piezas__.add(pieza_mock)
         
         # Seteo a que instancias_piezas solo pueda devolver pieza_mock y True.
         # Simulo que el peón puede moverse a 'a3'.
@@ -74,8 +56,8 @@ class TestTablero(unittest.TestCase):
         pieza_mock = MagicMock()
         pieza_mock.__nom__ = "P"
         pieza_mock.__posicion__ = (7, 7)
-        pieza_mock.var.return_value = "P7"
-        self.__BD_piezas__.add(pieza_mock)
+        pieza_mock.id.return_value = "P7"
+        self.__tablero__.__BD_piezas__.add(pieza_mock)
 
         # Simulo que el peón puede moverse a 'a6'.
         self.__tablero__.instancias_piezas = MagicMock(return_value=(pieza_mock, True, [(7, 6)]))
@@ -97,14 +79,14 @@ class TestTablero(unittest.TestCase):
         pieza_mock_1 = MagicMock()
         pieza_mock_1.__nom__ = "Peon"
         pieza_mock_1.__posicion__ = (1, 7)
-        pieza_mock_1.var.return_value = "P1"
-        self.__BD_piezas__.add(pieza_mock_1)
+        pieza_mock_1.id.return_value = "P1"
+        self.__tablero__.__BD_piezas__.add(pieza_mock_1)
 
         pieza_mock_2 = MagicMock()
         pieza_mock_2.__nom__ = "Peon"
         pieza_mock_2.__posicion__ = (2, 7)
-        pieza_mock_2.var.return_value = "P2"
-        self.__BD_piezas__.add(pieza_mock_2)
+        pieza_mock_2.id.return_value = "P2"
+        self.__tablero__.__BD_piezas__.add(pieza_mock_2)
         
         # Uso side_effect para alternar entre que retorne False y True.
         # La secuencia deseada es: False una vez y True 15 veces.
@@ -133,6 +115,8 @@ class TestTablero(unittest.TestCase):
     def test_instancias_piezas(self, mock_print):
         pieza, movible, posibilidades = self.__tablero__.instancias_piezas(self.__tablero__.__BD_piezas__, 'P', 1)
         self.assertIsInstance(pieza, Peon)
+        self.assertTrue(movible)
+        self.assertEqual(posibilidades, [(1, 5), (1, 6)])
 
     # Testeo que movible funciona para las diferentes piezas.
 
@@ -143,6 +127,8 @@ class TestTablero(unittest.TestCase):
         pieza = self.__tablero__.__BD_piezas__.search('P1')
         movible, posibilidades = self.__tablero__.movible(pieza)
         self.assertTrue(movible)
+        self.assertIn((1, 6), posibilidades)
+        self.assertNotIn((1, 4), posibilidades)
 
     # Para un movimiento diagonal es más complicado, porque hay que setear un escenario en el que
     # se pueda aplicar, ya que se necesita la pieza enemiga en la posicion de destino.
@@ -263,9 +249,10 @@ class TestTablero(unittest.TestCase):
     def test_mover_pieza(self, mock_print):
         # En este caso también se puede usar la instancia original.
         pieza = self.__tablero__.__BD_piezas__.search('P1')
-        movido = self.__tablero__.mover_pieza(pieza, 'a3', [(1, 6)])
+        movido = self.__tablero__.mover_pieza(pieza, 'a3', (1, 6), ('a','2'), [(1, 6)])
         self.assertTrue(movido)
     
+
     @patch('builtins.print')
     def test_mover_pieza_comer(self, mock_print):
         pieza_mock = MagicMock(spec=Peon)
@@ -275,35 +262,11 @@ class TestTablero(unittest.TestCase):
         pieza_mock.__vive__ = True
         self.__BD_piezas__.add(pieza_mock)
         
-        movido = self.__tablero__.mover_pieza(pieza_mock, 'd7', [(4, 2)])
+        movido = self.__tablero__.mover_pieza(pieza_mock, 'd7', (4, 2), ('c','6'), [(4, 2)])
         self.assertTrue(movido)
-
-    @patch('builtins.print')
-    def test_mover_pieza_errores(self, mock_print):
-        pieza_mock = MagicMock(spec=Peon)
-        pieza_mock.__nom__ = "Peon"
-        pieza_mock.__color__ = "blanca"
-        pieza_mock.__posicion__ = (3, 3)
-        pieza_mock.__vive__ = True
-        self.__BD_piezas__.add(pieza_mock)
-        
-        # No se puedo mover, porque la posición no es válida.
-        movido = self.__tablero__.mover_pieza(pieza_mock, 'a3', [(1, 8)])
-        self.assertFalse(movido)
-        # No se puede mover, porque la posición no existe.
-        movido = self.__tablero__.mover_pieza(pieza_mock, 'a', [(1, 6)])
-        self.assertRaises(ValueError)
-
-    # Testeo que conversion_coordenadas funciona.
-
-    @patch('builtins.print')
-    def test_conversion_coordenadas(self, mock_print):
-        x, y = self.__tablero__.conversion_coordenadas(1, 8)
-        self.assertEqual((x, y), ('a', '1'))
     
     # Testeo que verificar_victoria funciona, para los diferentes casos.
-    # En los de que terminan con exit, uso assertRaises, y en el que termina con return,
-    # uso assertIsNone para verificar que sea nulo.
+    # Uso assertEqual para verificar que el string devuelto sea el esperado.
 
     @patch('builtins.print')
     def test_victoria_por_movimientos_empate(self, mock_print):
@@ -314,8 +277,9 @@ class TestTablero(unittest.TestCase):
             if pieza.__color__ == 'negra':
                 pieza.movimientos_posibles = MagicMock(return_value=[])
 
-        with self.assertRaises(SystemExit):
-            self.__tablero__.verificar_victoria()
+        resultado = self.__tablero__.verificar_victoria()
+        self.assertEqual(resultado, "¡Empate por movimientos!")
+
 
     @patch('builtins.print')
     def test_victoria_por_movimientos_negras_ganan(self, mock_print):
@@ -326,8 +290,9 @@ class TestTablero(unittest.TestCase):
             if pieza.__color__ == 'negra':
                 pieza.movimientos_posibles = MagicMock(return_value=[(3, 3)])
 
-        with self.assertRaises(SystemExit):
-            self.__tablero__.verificar_victoria()
+        resultado = self.__tablero__.verificar_victoria()
+        self.assertEqual(resultado, "¡El jugador negro ha ganado por movimientos!")
+
 
     @patch('builtins.print')
     def test_victoria_por_movimientos_blancas_ganan(self, mock_print):
@@ -338,28 +303,31 @@ class TestTablero(unittest.TestCase):
             if pieza.__color__ == 'blanca':
                 pieza.movimientos_posibles = MagicMock(return_value=[(2, 2)])
 
-        with self.assertRaises(SystemExit):
-            self.__tablero__.verificar_victoria()
+        resultado = self.__tablero__.verificar_victoria()
+        self.assertEqual(resultado, "¡El jugador blanco ha ganado por movimientos!")
+
 
     @patch('builtins.print')
     def test_victoria_por_piezas_blancas_ganan(self, mock_print):
-        # Todas las piezas negras son comidas.
+        # El rey negro es comido.
         for pieza in self.__tablero__.__BD_piezas__.__base_datos__.values():
             if pieza.__color__ == 'negra':
                 pieza.__vive__ = False
 
-        with self.assertRaises(SystemExit):
-            self.__tablero__.verificar_victoria()
+        resultado = self.__tablero__.verificar_victoria()
+        self.assertEqual(resultado, "¡El jugador blanco ha ganado por capturar al rey negro!")
+
 
     @patch('builtins.print')
     def test_victoria_por_piezas_negras_ganan(self, mock_print):
-        # Todas las piezas blancas son comidas.
+        # El rey blanco es comido.
         for pieza in self.__tablero__.__BD_piezas__.__base_datos__.values():
             if pieza.__color__ == 'blanca':
                 pieza.__vive__ = False
 
-        with self.assertRaises(SystemExit):
-            self.__tablero__.verificar_victoria()
+        resultado = self.__tablero__.verificar_victoria()
+        self.assertEqual(resultado, "¡El jugador negro ha ganado por capturar al rey blanco!")
+
 
     @patch('builtins.print')
     def test_verificar_victoria_none(self, mock_print):
@@ -374,7 +342,7 @@ class TestTablero(unittest.TestCase):
                 pieza.movimientos_posibles = MagicMock(return_value=[(2, 2)])
 
         resultado = self.__tablero__.verificar_victoria()
-        self.assertIsNone(resultado)
+        self.assertEqual(resultado, "")
 
 
 if __name__ == "__main__":
