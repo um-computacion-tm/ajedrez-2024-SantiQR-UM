@@ -47,6 +47,8 @@ exclude_patterns:
 - "dist/"
 - "features/"
 - "venv/"
+- "test/"
+- "tests/"
 - "**/tests/"
 - "**/vendor/"
 - "**/*_test.go"
