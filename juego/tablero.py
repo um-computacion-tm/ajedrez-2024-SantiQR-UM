@@ -1,5 +1,5 @@
 from juego.piezas import *
-from juego.BD import *
+from juego.BaseDeDatos import *
 
 class Tablero:
     def __init__(self):
@@ -11,46 +11,46 @@ class Tablero:
 
         #Piezas blancas.
         info_piezas = [
-        ("P1" , "blanca", (1,7), u"\u2659", "Peon"), # ♙
-        ("P2" , "blanca", (2,7), u"\u2659", "Peon"), # ♙
-        ("P3" , "blanca", (3,7), u"\u2659", "Peon"), # ♙
-        ("P4" , "blanca", (4,7), u"\u2659", "Peon"), # ♙
-        ("P5" , "blanca", (5,7), u"\u2659", "Peon"), # ♙
-        ("P6" , "blanca", (6,7), u"\u2659", "Peon"), # ♙
-        ("P7" , "blanca", (7,7), u"\u2659", "Peon"), # ♙
-        ("P8" , "blanca", (8,7), u"\u2659", "Peon"), # ♙
-        ("C1" , "blanca", (2,8), u"\u2658", "Caballo"), # ♘
-        ("C2" , "blanca", (7,8), u"\u2658", "Caballo"), # ♘
-        ("A1" , "blanca", (3,8), u"\u2657", "Alfil"), # ♗
-        ("A2" , "blanca", (6,8), u"\u2657", "Alfil"), # ♗
-        ("T1" , "blanca", (1,8), u"\u2656", "Torre"), # ♖
-        ("T2" , "blanca", (8,8), u"\u2656", "Torre"), # ♖
-        ("D1" , "blanca", (4,8), u"\u2655", "Dama"), # ♕
-        ("R1" , "blanca", (5,8), u"\u2654", "Rey"), # ♔
+        ("P1" , "blanca", (1,7), "Peon"), # ♙
+        ("P2" , "blanca", (2,7), "Peon"), # ♙
+        ("P3" , "blanca", (3,7), "Peon"), # ♙
+        ("P4" , "blanca", (4,7), "Peon"), # ♙
+        ("P5" , "blanca", (5,7), "Peon"), # ♙
+        ("P6" , "blanca", (6,7), "Peon"), # ♙
+        ("P7" , "blanca", (7,7), "Peon"), # ♙
+        ("P8" , "blanca", (8,7), "Peon"), # ♙
+        ("C1" , "blanca", (2,8), "Caballo"), # ♘
+        ("C2" , "blanca", (7,8), "Caballo"), # ♘
+        ("A1" , "blanca", (3,8), "Alfil"), # ♗
+        ("A2" , "blanca", (6,8), "Alfil"), # ♗
+        ("T1" , "blanca", (1,8), "Torre"), # ♖
+        ("T2" , "blanca", (8,8), "Torre"), # ♖
+        ("D1" , "blanca", (4,8), "Dama"), # ♕
+        ("R1" , "blanca", (5,8), "Rey"), # ♔
         
         # Piezas negras.
-        ("p1" , "negra", (1,2), u"\u265F", "Peon"), # ♟
-        ("p2" , "negra", (2,2), u"\u265F", "Peon"), # ♟
-        ("p3" , "negra", (3,2), u"\u265F", "Peon"), # ♟                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("p4" , "negra", (4,2), u"\u265F", "Peon"), # ♟
-        ("p5" , "negra", (5,2), u"\u265F", "Peon"), # ♟
-        ("p6" , "negra", (6,2), u"\u265F", "Peon"), # ♟
-        ("p7" , "negra", (7,2), u"\u265F", "Peon"), # ♟
-        ("p8" , "negra", (8,2), u"\u265F", "Peon"), # ♟
-        ("c1" , "negra", (2,1), u"\u265E", "Caballo"), # ♞
-        ("c2" , "negra", (7,1), u"\u265E", "Caballo"), # ♞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("a1" , "negra", (3,1), u"\u265D", "Alfil"), # ♝
-        ("a2" , "negra", (6,1), u"\u265D", "Alfil"), # ♝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        ("t1" , "negra", (1,1), u"\u265C", "Torre"), # ♜
-        ("t2" , "negra", (8,1), u"\u265C", "Torre"), # ♜
-        ("d1" , "negra", (4,1), u"\u265B", "Dama"), # ♛
-        ("r1" , "negra", (5,1), u"\u265A", "Rey") # ♚
+        ("p1" , "negra", (1,2), "Peon"), # ♟
+        ("p2" , "negra", (2,2), "Peon"), # ♟
+        ("p3" , "negra", (3,2), "Peon"), # ♟                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        ("p4" , "negra", (4,2), "Peon"), # ♟
+        ("p5" , "negra", (5,2), "Peon"), # ♟
+        ("p6" , "negra", (6,2), "Peon"), # ♟
+        ("p7" , "negra", (7,2), "Peon"), # ♟
+        ("p8" , "negra", (8,2), "Peon"), # ♟
+        ("c1" , "negra", (2,1), "Caballo"), # ♞
+        ("c2" , "negra", (7,1), "Caballo"), # ♞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        ("a1" , "negra", (3,1), "Alfil"), # ♝
+        ("a2" , "negra", (6,1), "Alfil"), # ♝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        ("t1" , "negra", (1,1), "Torre"), # ♜
+        ("t2" , "negra", (8,1), "Torre"), # ♜
+        ("d1" , "negra", (4,1), "Dama"), # ♛
+        ("r1" , "negra", (5,1), "Rey") # ♚
         ]
         
         # Espacios.
         info_espacios = [
-        ("B" , "blanca", u"\u25A1"), # Espacio blanco □
-        ("N" , "negra", u"\u25A0") # Espacio negro ■
+        ("B" , "blanca"), # Espacio blanco □
+        ("N" , "negra") # Espacio negro ■
         ]
         
         # Creo las BDs.
@@ -59,22 +59,18 @@ class Tablero:
         
         # Añado las piezas a la BD.
         # Quite los atributos 'num' y 'color_casilla' de las piezas.
-        for var, color, posicion, s, nom in info_piezas:
+        for id, color, posicion, nom in info_piezas:
             
             # Uso globals() para obtener la clase a partir del nombre (string) de la pieza.
             clase_pieza = globals().get(nom)
             
             if clase_pieza:
-                pieza = clase_pieza(var, color, posicion, s, nom)
+                pieza = clase_pieza(id, color, posicion, nom)
                 BD_piezas.add(pieza)
-
-            # Para depurar:
-            # else:
-            #     print(f"No se encontró la clase: {nom}")
         
         # Añado los espacios a la BD.
-        for var, color, s in info_espacios:
-            espacio = Espacio(var, color, s)
+        for id, color in info_espacios:
+            espacio = Espacio(id, color)
             BD_espacios.add(espacio)
         
         # Creo el tablero vacío.
@@ -109,10 +105,8 @@ class Tablero:
         for fila in self.__tablero__:
             for casilla in fila:
                 # Si es una pieza o una casilla, muestro el símbolo.
-                if isinstance(casilla, Pieza):
-                    string_tablero += (str(casilla.__s__) + (" "))
-                elif isinstance(casilla, Espacio):
-                    string_tablero += (str(casilla.__s__) + (" "))
+                if isinstance(casilla, Pieza) or isinstance(casilla, Espacio):
+                    string_tablero += (str(casilla.__str__()) + (" "))
                 else:
                     string_tablero += (str(casilla) + (" "))
             string_tablero += ("\n")
@@ -171,7 +165,7 @@ class Tablero:
     def instancias_piezas(self, BD_piezas, letra, i):
         
         # Uso el método 'search' para repasar la BD de piezas, donde están las instancias, 
-        # entregando el valor var (usando la letra más el número de pieza).
+        # entregando el valor id (usando la letra más el número de pieza).
         pieza = BD_piezas.search(letra + str(i))
         # Reviso si se puede mover.
         movible, posibilidades = self.movible(pieza)  
@@ -224,6 +218,7 @@ class Tablero:
                 # Si la casilla está vacía.
                 if isinstance(casilla, Espacio):
                     posibilidades_checked.append(posicion)
+
                 # Si la casilla tiene una pieza de distinto color.
                 elif isinstance(casilla, Pieza) and casilla.__color__ != pieza.__color__:
                     posibilidades_checked.append(posicion)

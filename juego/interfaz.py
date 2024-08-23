@@ -145,7 +145,7 @@ class Juego:
 
             # Busco la instancia de la pieza seleccionada.
             seleccion = self.__ajedrez__.__tablero__.__BD_piezas__.search(\
-                self.__ajedrez__.__lista_instancias__[nro_instancia].var())
+                self.__ajedrez__.__lista_instancias__[nro_instancia].id())
             
             # Pido la nueva posición.
             nueva_posicion = input("Ingrese la nueva posición (ej. 'a3'): ")

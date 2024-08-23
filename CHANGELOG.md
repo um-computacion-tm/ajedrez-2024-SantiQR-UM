@@ -6,6 +6,12 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12] - 22-08-2024
+
+### Corregido
+
+- Corregido `test_interfaz` y `test_ajedrez`.
+
 ## [1.11] - 21-08-2024
 
 ### Corregido

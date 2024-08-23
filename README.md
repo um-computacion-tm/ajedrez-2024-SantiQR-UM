@@ -9,7 +9,7 @@ con mucho amor (y velocidad), así que disfruten.
 
 El juego es un juego de ajedrez de dos jugadores común y corriente, salvo por el hecho de que se le quita que no hay jaque, ni jaque mate, ni reglas especiales como enroque, coronación, etc.
 
-La forma de ganar es que un jugador se coma el rey del otro, o que se le acaben las posibilidades de mover a cualquiera, es decir, tablas. Tienen agregada una funcionalidad para que en cualquier momento lo puedan empatar la partida.
+La forma de ganar es que un jugador se coma el rey del otro, o que se le acaben las posibilidades de mover a cualquiera, es decir, tablas. Tienen agregada una funcionalidad para que en cualquier momento puedan empatar la partida.
 
 ### Para hacerlo funcionar:
 
