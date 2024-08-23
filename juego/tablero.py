@@ -1,56 +1,56 @@
 from juego.piezas import *
-from juego.BD import *
+from juego.BaseDeDatos import *
 
 class Tablero:
     def __init__(self):
         self.__tablero__, self.__BD_piezas__, self.__BD_espacios__ = self.crear_tablero_inicial()
 
+    # Método para crear el tablero inicial.
     def crear_tablero_inicial(self):
         # Creo las piezas y los espacios:
-        # Quite los atributos 'num' y 'color_casilla' de las piezas.
 
         #Piezas blancas.
         info_piezas = [
-        ("P1" , "blanca", (1,7), u"\u2659", "Peon"), # ♙
-        ("P2" , "blanca", (2,7), u"\u2659", "Peon"), # ♙
-        ("P3" , "blanca", (3,7), u"\u2659", "Peon"), # ♙
-        ("P4" , "blanca", (4,7), u"\u2659", "Peon"), # ♙
-        ("P5" , "blanca", (5,7), u"\u2659", "Peon"), # ♙
-        ("P6" , "blanca", (6,7), u"\u2659", "Peon"), # ♙
-        ("P7" , "blanca", (7,7), u"\u2659", "Peon"), # ♙
-        ("P8" , "blanca", (8,7), u"\u2659", "Peon"), # ♙
-        ("C1" , "blanca", (2,8), u"\u2658", "Caballo"), # ♘
-        ("C2" , "blanca", (7,8), u"\u2658", "Caballo"), # ♘
-        ("A1" , "blanca", (3,8), u"\u2657", "Alfil"), # ♗
-        ("A2" , "blanca", (6,8), u"\u2657", "Alfil"), # ♗
-        ("T1" , "blanca", (1,8), u"\u2656", "Torre"), # ♖
-        ("T2" , "blanca", (8,8), u"\u2656", "Torre"), # ♖
-        ("D1" , "blanca", (4,8), u"\u2655", "Dama"), # ♕
-        ("R1" , "blanca", (5,8), u"\u2654", "Rey"), # ♔
+        ("P1" , "blanca", (1,7), "Peon"), # ♙
+        ("P2" , "blanca", (2,7), "Peon"), # ♙
+        ("P3" , "blanca", (3,7), "Peon"), # ♙
+        ("P4" , "blanca", (4,7), "Peon"), # ♙
+        ("P5" , "blanca", (5,7), "Peon"), # ♙
+        ("P6" , "blanca", (6,7), "Peon"), # ♙
+        ("P7" , "blanca", (7,7), "Peon"), # ♙
+        ("P8" , "blanca", (8,7), "Peon"), # ♙
+        ("C1" , "blanca", (2,8), "Caballo"), # ♘
+        ("C2" , "blanca", (7,8), "Caballo"), # ♘
+        ("A1" , "blanca", (3,8), "Alfil"), # ♗
+        ("A2" , "blanca", (6,8), "Alfil"), # ♗
+        ("T1" , "blanca", (1,8), "Torre"), # ♖
+        ("T2" , "blanca", (8,8), "Torre"), # ♖
+        ("D1" , "blanca", (4,8), "Dama"), # ♕
+        ("R1" , "blanca", (5,8), "Rey"), # ♔
         
         # Piezas negras.
-        ("p1" , "negra", (1,2), u"\u265F", "Peon"), # ♟
-        ("p2" , "negra", (2,2), u"\u265F", "Peon"), # ♟
-        ("p3" , "negra", (3,2), u"\u265F", "Peon"), # ♟                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("p4" , "negra", (4,2), u"\u265F", "Peon"), # ♟
-        ("p5" , "negra", (5,2), u"\u265F", "Peon"), # ♟
-        ("p6" , "negra", (6,2), u"\u265F", "Peon"), # ♟
-        ("p7" , "negra", (7,2), u"\u265F", "Peon"), # ♟
-        ("p8" , "negra", (8,2), u"\u265F", "Peon"), # ♟
-        ("c1" , "negra", (2,1), u"\u265E", "Caballo"), # ♞
-        ("c2" , "negra", (7,1), u"\u265E", "Caballo"), # ♞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("a1" , "negra", (3,1), u"\u265D", "Alfil"), # ♝
-        ("a2" , "negra", (6,1), u"\u265D", "Alfil"), # ♝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        ("t1" , "negra", (1,1), u"\u265C", "Torre"), # ♜
-        ("t2" , "negra", (8,1), u"\u265C", "Torre"), # ♜
-        ("d1" , "negra", (4,1), u"\u265B", "Dama"), # ♛
-        ("r1" , "negra", (5,1), u"\u265A", "Rey") # ♚
+        ("p1" , "negra", (1,2), "Peon"), # ♟
+        ("p2" , "negra", (2,2), "Peon"), # ♟
+        ("p3" , "negra", (3,2), "Peon"), # ♟                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        ("p4" , "negra", (4,2), "Peon"), # ♟
+        ("p5" , "negra", (5,2), "Peon"), # ♟
+        ("p6" , "negra", (6,2), "Peon"), # ♟
+        ("p7" , "negra", (7,2), "Peon"), # ♟
+        ("p8" , "negra", (8,2), "Peon"), # ♟
+        ("c1" , "negra", (2,1), "Caballo"), # ♞
+        ("c2" , "negra", (7,1), "Caballo"), # ♞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        ("a1" , "negra", (3,1), "Alfil"), # ♝
+        ("a2" , "negra", (6,1), "Alfil"), # ♝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+        ("t1" , "negra", (1,1), "Torre"), # ♜
+        ("t2" , "negra", (8,1), "Torre"), # ♜
+        ("d1" , "negra", (4,1), "Dama"), # ♛
+        ("r1" , "negra", (5,1), "Rey") # ♚
         ]
         
         # Espacios.
         info_espacios = [
-        ("B" , "blanca", u"\u25A1"), # Espacio blanco □
-        ("N" , "negra", u"\u25A0") # Espacio negro ■
+        ("B" , "blanca"), # Espacio blanco □
+        ("N" , "negra") # Espacio negro ■
         ]
         
         # Creo las BDs.
@@ -59,22 +59,18 @@ class Tablero:
         
         # Añado las piezas a la BD.
         # Quite los atributos 'num' y 'color_casilla' de las piezas.
-        for var, color, posicion, s, nom in info_piezas:
+        for id, color, posicion, nom in info_piezas:
             
             # Uso globals() para obtener la clase a partir del nombre (string) de la pieza.
             clase_pieza = globals().get(nom)
             
             if clase_pieza:
-                pieza = clase_pieza(var, color, posicion, s, nom)
+                pieza = clase_pieza(id, color, posicion, nom)
                 BD_piezas.add(pieza)
-
-            # Para depurar:
-            # else:
-            #     print(f"No se encontró la clase: {nom}")
         
         # Añado los espacios a la BD.
-        for var, color, s in info_espacios:
-            espacio = Espacio(var, color, s)
+        for id, color in info_espacios:
+            espacio = Espacio(id, color)
             BD_espacios.add(espacio)
         
         # Creo el tablero vacío.
@@ -103,112 +99,73 @@ class Tablero:
         # Devuelvo el tablero y las BDs para la interfaz.
         return tablero, BD_piezas, BD_espacios
     
-
-    def imprimir_tablero(self):
+    # Método para convertir el tablero en un string.
+    def __str__(self):
+        string_tablero = "\n"
         for fila in self.__tablero__:
             for casilla in fila:
                 # Si es una pieza o una casilla, muestro el símbolo.
-                if isinstance(casilla, Pieza):
-                    print(casilla.__s__, end=' ')
-                elif isinstance(casilla, Espacio):
-                    print(casilla.__s__, end=' ')
+                if isinstance(casilla, Pieza) or isinstance(casilla, Espacio):
+                    string_tablero += (str(casilla.__str__()) + (" "))
                 else:
-                    print(casilla, end=' ')
-            print()
-
+                    string_tablero += (str(casilla) + (" "))
+            string_tablero += ("\n")
+        return string_tablero
+    
+    # Método para obtener las piezas movibles.
+    # Llama a submétodos.
     def obtener_piezas_movibles(self, color):
         # Devuelvo una lista de nombres de piezas que pueden moverse para el color dado.
         # Luego una lista de las instancias de esas piezas.
         # Y después pido la posición a la que se quiere avanzar.
 
-        
-        lista_piezas = [] # Lista para los nombres las piezas que voy a mostrar.
-        lista_instancias = [] # Lista para las instancias de las piezas que voy a mostrar.
-        lista_posibilidades = [] # Lista para las posibilidades de cada una de las piezas.
-        
-        # Para depurar:
-        # print(BD_piezas.__base_datos__)
-        
+        lista_piezas = []  # Lista para los nombres las piezas que voy a mostrar.
+        lista_instancias = []  # Lista para las instancias de las piezas que voy a mostrar.
+        lista_posibilidades = []  # Lista para las posibilidades de cada una de las piezas.
+
         # Para las 16 piezas del jugador:
+        piezas = [
+            (1, 8, "P", "p"),  # Peones
+            (9, 10, "C", "c"),  # Caballos
+            (11, 12, "A", "a"),  # Alfiles
+            (13, 14, "T", "t"),  # Torres
+            (15, 15, "D", "d"),  # Dama
+            (16, 16, "R", "r")  # Rey
+        ]
+
+        # Hago la iteración para recorrer todas las piezas.
         for i in range(1, 17):
-            
-            if i <= 8:
-            ## Para los peones.
-                cant = i
-                if color == "blanca":
-                    letra = "P"
-                else:
-                    letra = "p"
-            
-            elif i <= 10:
-            ## Para los caballos.
-                cant = i - 8
-                if color == "blanca":
-                    letra = "C"
-                else:
-                    letra = "c"
-            
-            elif i <= 12:
-            ## Para los alfiles.
-                cant = i - 10
-                if color == "blanca":
-                    letra = "A"
-                else:
-                    letra = "a"
+            # Mando a buscar la letra y la cantidad de la pieza según su rango.
+            letra, cant = self.obtener_letra_y_cantidad(piezas, i, color)
 
-            elif i <= 14:
-            ## Para las torres.
-                cant = i - 12
-                if color == "blanca":
-                    letra = "T"
-                else:
-                    letra = "t"
-            
-            elif i == 15:
-            ## Para la dama.
-                cant = i - 14
-                if color == "blanca":
-                    letra = "D"
-                else:
-                    letra = "d"
-            
-            elif i == 16:
-            ## Para el rey.
-                cant = i - 15
-                if color == "blanca":
-                    letra = "R"
-                else:
-                    letra = "r"
-            
-            # Reviso que piezas puedo mostrar en base a cuales son movibles y sus posibilidades.
-            resultado, movible, posibilidades = self.instancias_piezas(self.__BD_piezas__, letra, cant)
-            
-            # Para depurar:
-            # print(resultado, " : ", movible)
+            # Mando a buscar las instancias de las piezas.
+            resultado, movible, posibilidades = self.instancias_piezas\
+                                                (self.__BD_piezas__, letra, cant)
 
-            if movible == False:
-                continue # Volver a preguntar por el resto de piezas.
-            
-            # Si se puede mover, añado a la lista de piezas, instancias y posibilidades.
-            # Que solo se pueda añadir una vez en cada una.
-            if resultado.__nom__ not in lista_piezas:
-                lista_piezas.append(resultado.__nom__)
+            # Agrego las piezas a las listas correspondientes.
+            if movible:
+                if resultado.__nom__ not in lista_piezas:
+                    lista_piezas.append(resultado.__nom__)
+                if resultado not in lista_instancias:
+                    lista_instancias.append(resultado)
+                    lista_posibilidades.append(posibilidades)
 
-            if resultado not in lista_instancias:
-                lista_instancias.append(resultado)
-                lista_posibilidades.append(posibilidades)
-            
-        # Acá hice la división de la función de obtener_piezas_moviles. La otra parte la mando
-        # a interfaz.py ya que tiene más sentido que el texto se ejecute en la parte de la
-        # interfaz.
-
+        # Devuelvo el tablero, las listas de piezas, instancias y posibilidades.
         return self, lista_piezas, lista_instancias, lista_posibilidades
 
+    # Método para obtener la letra y la cantidad de la pieza según su rango.
+    def obtener_letra_y_cantidad(self, piezas, i, color):
+        for inicio, fin, letra_blanca, letra_negra in piezas:
+            if inicio <= i <= fin:
+                cant = i - inicio + 1
+                letra = letra_blanca if color == "blanca" else letra_negra
+                return letra, cant
 
+    # Método para obtener las instancias movibles de las piezas.
     def instancias_piezas(self, BD_piezas, letra, i):
         
         # Uso el método 'search' para repasar la BD de piezas, donde están las instancias, 
-        # entregando el valor var (usando la letra más el numero de pieza).
+        # entregando el valor id (usando la letra más el número de pieza).
         pieza = BD_piezas.search(letra + str(i))
         # Reviso si se puede mover.
         movible, posibilidades = self.movible(pieza)  
@@ -216,187 +173,198 @@ class Tablero:
         # Devuelvo la instancia de la pieza, si es movible (bool) y las posibilidades.
         return pieza, movible, posibilidades
         
-
+    # Método principal para verificar si una pieza puede moverse.
+    # Este llama a submétodos.
     def movible(self, pieza):
-        # Verifico si la pieza vive.
+        # Me fijo si la pieza está viva y obtengo los movimientos posibles.
+        # Luego, filtro los movimientos posibles según las reglas del juego.
+        # Finalmente, verifico si el camino entre el origen y el destino está libre.
+        viva, posibilidades = self.verificar_viva_y_movimientos(pieza)
+        
+        if not viva:
+            return False, []
+        
+        posibilidades_checked = self.filtrar_movimientos(pieza, posibilidades)
+        posibilidades_double_checked = self.verificar_camino_libre(pieza, posibilidades_checked)
+        
+        return bool(posibilidades_double_checked), posibilidades_double_checked
+
+    # Parte 1 del método movible.
+    def verificar_viva_y_movimientos(self, pieza):
+        # Me fijo si la pieza está viva. Si no lo está, retorno False y una lista vacía.
+        # Si está viva, retorno True y la lista de movimientos posibles de la pieza.
         if not pieza.__vive__:
             return False, []
+        
+        return True, pieza.movimientos_posibles()
 
-        # Creo las listas de posibles movimientos, diferentes checkers para pasar cada requisito.
+    # Parte 2 del método movible.
+    def filtrar_movimientos(self, pieza, posibilidades):
+    # Filtro los movimientos posibles según las reglas del juego.
         posibilidades_checked = []
-        posibilidades_double_checked = []
 
-        # Obtengo la lista de posibles movimientos.
-        posibilidades = pieza.movimientos_posibles()
-
-        # Itero sobre todas las posiciones posibles.
         for posicion in posibilidades:
             x, y = posicion
-
-            # Verifico si la posición está dentro del rango del tablero 
-            # (sin contar las coordenadas).
-            # No debería ser necesario, porque ya está comprobado en
-            # movimientos_posibles(), pero por si acaso.
+            
+            # Aunque ya está hecha la verificación en el método 'movimientos_posibles', lo hago
+            # de nuevo por si acaso.
             if not (1 <= x <= 8 and 1 <= y <= 8):
                 continue
-            
-            # Guardo la posición destino en casilla.
-            casilla = self.__tablero__[y][x]
-            
-            # Para depurar:
-            # print("casilla es : ", casilla)
-            # print("pieza es : ", pieza)
 
-            # Para todas las piezas que no sean peones:
+            casilla = self.__tablero__[y][x]
+
+            # Primero, si la pieza no es peón:
             if not isinstance(pieza, Peon):
-                
-                # Verifico si es una instancia de Espacio o una pieza enemiga:
+                # Si la casilla está vacía.
                 if isinstance(casilla, Espacio):
                     posibilidades_checked.append(posicion)
 
-                elif isinstance(casilla, Pieza):
-                    if casilla.__color__ != pieza.__color__:
-                        posibilidades_checked.append(posicion)
+                # Si la casilla tiene una pieza de distinto color.
+                elif isinstance(casilla, Pieza) and casilla.__color__ != pieza.__color__:
+                    posibilidades_checked.append(posicion)
+            # Si la pieza es peón:
             else:
-                # Para los peones:
-                # Movimiento vertical:
-                if pieza.__posicion__ == (x, y + 1) or pieza.__posicion__ == (x, y - 1) \
-                    or pieza.__posicion__ == (x, y + 2) or pieza.__posicion__ == (x, y - 2):
+                # Lo mando a verificar según el tipo de movimiento.
+                if self.filtrar_movimiento_vertical_peon(pieza, x, y, casilla):
+                    posibilidades_checked.append(posicion)
+                elif self.filtrar_movimiento_diagonal_peon(pieza, x, y, casilla):
+                    posibilidades_checked.append(posicion)
 
-                    if isinstance(casilla, Espacio):
-                        posibilidades_checked.append(posicion)
+        return posibilidades_checked
 
-                # Movimiento diagonal:
-                elif pieza.__posicion__ == (x + 1, y + 1) or pieza.__posicion__ == (x - 1, y - 1) \
-                    or pieza.__posicion__ == (x + 1, y - 1) or pieza.__posicion__ == (x - 1, y + 1):
+    # Parte 1 del método filtrar_movimientos.
+    def filtrar_movimiento_vertical_peon(self, peon, x, y, casilla):
+        # Verifica si el movimiento vertical del peón es válido.
+        # Primero vé si está en las posibilidades y después si está vacío.
+        flag = True
+        if abs(peon.__posicion__[0] - x) != 0:
+            flag = False
+        if abs(peon.__posicion__[1] - y) not in [1, 2]:
+            flag = False
+        if not isinstance(casilla, Espacio):
+            flag = False
+        return flag
 
-                    if isinstance(casilla, Pieza):
-                        if casilla.__color__ != pieza.__color__:
-                            posibilidades_checked.append(posicion)
+    # Parte 2 del método filtrar_movimientos.
+    def filtrar_movimiento_diagonal_peon(self, peon, x, y, casilla):
+        # Verifica si el movimiento diagonal del peón es válido.
+        # Si está en las posibilidades y si hay una pieza de otro color.
+        flag = True
+        if abs(peon.__posicion__[0] - x) != 1:
+            flag = False
+        if abs(peon.__posicion__[1] - y) != 1:
+            flag = False
+        if not isinstance(casilla, Pieza):
+            flag = False
+        if casilla.__color__ == peon.__color__:
+            flag = False
+        return flag
 
-        # Si la pieza es un caballo, no necesito comprobar el camino
-        # así que pasa directamente el checkeo.
-        if isinstance(pieza, Caballo):
-            posibilidades_double_checked = posibilidades_checked
+    # Parte 3 del método movible.
+    def verificar_camino_libre(self, pieza, posibilidades_checked):
+        # Verifico si el camino entre el origen y el destino está libre.
+        posibilidades_double_checked = []
 
-        # Ahora, verifico si el camino entre el origen y el destino está libre.
+        # Por cada una de las posiciones:
         for posicion in posibilidades_checked:
-            x, y = posicion
-                
-            # Si es caballo, lo salta al camino, así que no lo verifico.
-            if not isinstance(pieza, Caballo):
-                x_start, y_start = pieza.__posicion__
-                x_end, y_end = posicion
+            # Mando a ver en la siguiente función.
+            if self.es_camino_libre(pieza, posicion):
+                posibilidades_double_checked.append(posicion)
 
-                # Determino dx y dy, que es la dirección del camino.
-                dx = 0 if x_end == x_start else (1 if x_end > x_start else -1)
-                dy = 0 if y_end == y_start else (1 if y_end > y_start else -1)
-                
-                # Calculo la posición de avance de la pieza.
-                x_avance, y_avance = x_start + dx, y_start + dy
-                
-                # Mientras no llegue al destino.
-                while x_avance != x_end or y_avance != y_end:
-                    # Mientras no encuentre ninguna pieza.
-                    if isinstance(self.__tablero__[y_avance][x_avance], Pieza):
-                        break # Salgo del bucle si encuentro una pieza.
-                    # Si no, avanzo.
-                    x_avance += dx
-                    y_avance += dy
-                else:
-                    # Si el camino está libre, paso el checkeo.
-                    posibilidades_double_checked.append(posicion)
-                    continue
-        
-        # Para depurar:
-        # print(pieza, " : ", posibilidades)
-        # print(pieza, " : ", posibilidades_checked)
-        # print(pieza, " : ", posibilidades_double_checked)
-        # print(pieza, " : ", bool(posibilidades_double_checked))
+        return posibilidades_double_checked
 
-        # Devuelvo el bool de si es un movimiento válido y las posibilidades.
-        return bool(posibilidades_double_checked), posibilidades_double_checked                      
+    # Parte 1 del método verificar_camino_libre.
+    def es_camino_libre(self, pieza, posicion):
+        # Verifica si el camino está libre para una pieza específica.
+        # Si es caballo, directamente lo devuelve.
+        if isinstance(pieza, Caballo):
+            return True
 
+        # Define inicio y final.
+        x_start, y_start = pieza.__posicion__
+        x_end, y_end = posicion
 
-    def mover_pieza(self, pieza, nueva_posicion, posibilidades):
+        # Define las direcciónes.
+        dx = self.calcular_direccion(x_start, x_end)
+        dy = self.calcular_direccion(y_start, y_end)
+
+        # Lo manda a verificar.
+        parametros = (x_start, y_start, x_end, y_end, dx, dy)
+        return self.verificar_casillas_libres(parametros)
+
+    # Parte 2 del método verificar_camino_libre.
+    def calcular_direccion(self, start, end):
+        # Calcula la dirección del movimiento.
+        if end == start:
+            return 0
+        return 1 if end > start else -1
+
+    # Parte 3 del método verificar_camino_libre.
+    def verificar_casillas_libres(self, parametros):
+        # Verifica si todas las casillas en el camino están libres.
+        x_start, y_start, x_end, y_end, dx, dy = parametros
+
+        # Define hacia adonde es el avance.
+        x_avance, y_avance = x_start + dx, y_start + dy
+
+        # Mientras no se choque con nada se sigue moviendo por el camino.
+        while x_avance != x_end or y_avance != y_end:
+            # Si hay algo devuelve False.
+            if isinstance(self.__tablero__[y_avance][x_avance], Pieza):
+                return False
+            x_avance += dx
+            y_avance += dy
+
+        return True             
+
+    # Este es el método que se llama para mover una pieza.
+    def mover_pieza(self, pieza, nueva_posicion_str, nueva_posicion_int, \
+                    vieja_posicion, posibilidades):
         # Acá está la logica para mover la pieza.
         
-        # Convierto la nueva posición de notación de la tabla a coordenadas.
-        # Esta no va a la función de conversión coordenadas, porque es la 
-        # función inversa, así que lo reviso acá.
-        # Try/Except por si envié un valor incorrecto.
-        try: 
-            columnas = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8}
-            filas = { '1': 8, '2': 7, '3': 6, '4': 5, '5': 4, '6': 3, '7': 2, '8': 1 }
-            nueva_columna, nueva_fila = nueva_posicion
-            x = columnas[nueva_columna]
-            y = filas[nueva_fila]
-
-        except (KeyError, ValueError):
-            print("\nOpción no válida.\n")
-            return False
-
-        # Verifico si la nueva posición está dentro de las posibilidades
-        if (x, y) not in posibilidades:
-            print("\nMovimiento no válido. La posición está fuera de las posibilidades.\n")
-            return False
-
         # Obtengo la casilla destino.
+        x, y = nueva_posicion_int
         casilla_destino = self.__tablero__[y][x]
 
-        # Convierto las coordenadas de la pieza a la notación de la tabla para mostrar en pantalla.
-        x_cambiar, y_cambiar = pieza.__posicion__
-        x_cambiado, y_cambiado = self.conversion_coordenadas(x_cambiar, y_cambiar)
+        x_vieja, y_vieja = vieja_posicion
         
         # Verifico si hay una pieza en la casilla destino.
         # Si casilla es una instancia pieza digo que la capturó.
+        string_movimiento = ""
         if isinstance(casilla_destino, Pieza):
-            print(f"\nMovimiento realizado: {pieza.__nom__} {pieza.__color__} {x_cambiado}{y_cambiado}", \
-                f"ha capturado {casilla_destino.__nom__} {casilla_destino.__color__} en {nueva_posicion}\n")
+            string_movimiento += f"\nMovimiento realizado: {pieza.__nom__} {pieza.__color__} {x_vieja}{y_vieja}"
+            string_movimiento += f" ha capturado {casilla_destino.__nom__} {casilla_destino.__color__} en {nueva_posicion_str}\n"
         
             # Actualizo el estado de la pieza capturada.
             casilla_destino.__vive__ = False
-
+        # Si es un espacio vacío.
         else:
-            print(f"\nMovimiento realizado: {pieza.__nom__} {pieza.__color__} {x_cambiado}{y_cambiado}", \
-                f"se ha movido a {nueva_posicion}\n")
+            string_movimiento += f"\nMovimiento realizado: {pieza.__nom__} {pieza.__color__} {x_vieja}{y_vieja}"
+            string_movimiento += f" se ha movido a {nueva_posicion_str}\n"
 
         # Actualizo el tablero con la nueva posición de la pieza:
         # Saco las viejas coordenadas.
         x_actual, y_actual = pieza.__posicion__
         # Restauro la casilla original con el espacio correspondiente.
-        self.__tablero__[y_actual][x_actual] = self.__BD_espacios__.search('B' if (x_actual + y_actual) \
-                                                                            % 2 == 0 else 'N')
+        self.__tablero__[y_actual][x_actual] = self.__BD_espacios__.search\
+                                               ('B' if (x_actual + y_actual) % 2 == 0 else 'N')
         # Coloco la pieza en la nueva posición.
         self.__tablero__[y][x] = pieza  
 
-        # Actualizo los atributos de la pieza con la nueva posición de la pieza y 
-        # ya no más su nuevo color de casilla. Ya que no estoy usando este atributo.
-        # De todas formas, lo dejo por si acaso.
-        ## nuevo_color_casilla = 'blanca' if casilla_destino.__color__ == 'blanca' else 'negra'
-        pieza.mover((x, y)) # , nuevo_color_casilla)
+        # Actualizo los atributos de la pieza con la nueva posición de la pieza.
+        pieza.mover((x, y))
 
-        return True # Devuelvo que se completó el movimiento.
+        return string_movimiento # Devuelvo que se completó el movimiento y el string para printear.
 
-
-    def conversion_coordenadas(self, x, y):
-        # Convierto las coordenadas de la pieza a la notación de la tabla.
-
-        columnas = {1 :'a', 2 :'b', 3 :'c', 4 :'d', 5 :'e', 6 :'f', 7 :'g', 8 :'h'}
-        filas = { 8 :'1', 7 :'2', 6 :'3', 5 :'4', 4 :'5', 3 :'6', 2 :'7', 1 :'8' }
-        
-        nueva_columna, nueva_fila = x, y
-
-        x = columnas[nueva_columna]
-        y = filas[nueva_fila]
-
-        return x, y # Devuelvo las coordenadas convertidas.
-    
+    # Este es el método principal para verificar si el juego ha terminado.
     def verificar_victoria(self):
         # Verifico si el juego ha terminado.
 
         # Para una victoria por piezas:
-        piezas_blancas_vivas, piezas_negras_vivas = self.victoria_por_piezas()
+        string_victoria, piezas_blancas_vivas, piezas_negras_vivas = self.victoria_por_piezas()
+
+        if string_victoria != "":
+            return string_victoria
 
         # Para una victoria por movimientos:
         # Reviso si hay al menos un movimiento posible para cada jugador.
@@ -404,33 +372,39 @@ class Tablero:
         movimientos_negras = any(self.movible(pieza)[0] for pieza in piezas_negras_vivas)
 
         if not movimientos_blancas and not movimientos_negras:
-            print("¡Empate por movimientos!")
-            exit()
+            string_victoria += "¡Empate por movimientos!"
 
-        if not movimientos_blancas:
-            print("¡El jugador negro ha ganado por movimientos!")
-            exit()
+        elif not movimientos_blancas:
+            string_victoria += "¡El jugador negro ha ganado por movimientos!"
 
-        if not movimientos_negras:
-            print("¡El jugador blanco ha ganado por movimientos!")
-            exit()
+        elif not movimientos_negras:
+            string_victoria += "¡El jugador blanco ha ganado por movimientos!"
 
-        return None # Devuelvo que no hay victoria.
+        return string_victoria # Devuelvo el string de victoria, si está vacío no pasó nada.
     
+    # Submétodo de verificar_victoria
     def victoria_por_piezas(self):
+        # Reviso si el rey de cada jugador sigue vivo.
+        rey_blanco_vivo = any(pieza.__nom__ == "Rey" and pieza.__color__ == 'blanca' 
+                    and pieza.__vive__ for pieza in self.__BD_piezas__.__base_datos__.values())
+        
+        rey_negro_vivo = any(pieza.__nom__ == "Rey" and pieza.__color__ == 'negra'
+                    and pieza.__vive__ for pieza in self.__BD_piezas__.__base_datos__.values())
 
+        # Creo el string vacío.
+        string_victoria = ""
+
+        if not rey_blanco_vivo:
+            string_victoria += "¡El jugador negro ha ganado por capturar al rey blanco!"
+
+        if not rey_negro_vivo:
+            string_victoria += "¡El jugador blanco ha ganado por capturar al rey negro!"
+        
         # Reviso cada una de las piezas vivas de cada jugador.
         piezas_blancas_vivas = [pieza for pieza in self.__BD_piezas__.__base_datos__.values() if \
-                                 pieza.__color__ == 'blanca' and pieza.__vive__]
+                                pieza.__color__ == 'blanca' and pieza.__vive__]
         piezas_negras_vivas = [pieza for pieza in self.__BD_piezas__.__base_datos__.values() if \
                                 pieza.__color__ == 'negra' and pieza.__vive__]
 
-        if not piezas_blancas_vivas:
-            print("¡El jugador negro ha ganado por piezas!")
-            exit()
-
-        if not piezas_negras_vivas:
-            print("¡El jugador blanco ha ganado por piezas!")
-            exit()
-        
-        return piezas_blancas_vivas, piezas_negras_vivas # Devuelvo las piezas vivas de cada jugador.
+        # Devuelvo el mensaje de victoria y las piezas vivas de cada jugador.
+        return string_victoria, piezas_blancas_vivas, piezas_negras_vivas

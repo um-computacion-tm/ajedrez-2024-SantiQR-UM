@@ -1,5 +1,5 @@
 import unittest
-from juego.BD import *
+from juego.BaseDeDatos import *
 from juego.piezas import *
 from juego.piezas import *
 
@@ -23,11 +23,6 @@ class TestBD(unittest.TestCase):
         # Con assertEqual compruebo que la pieza es la esperada.
         self.assertEqual(pieza, self.__peon__)
 
-    # Testeo buscar una casilla por color.
-    # Test por si se quiere usar esta función
-    # def test_search_espacio(self):
-    #     var = self.__bd__.search_espacio("negra")
-    #     self.assertEqual(var, "N")
 
 if __name__ == "__main__":
     unittest.main()

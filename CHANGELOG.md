@@ -6,6 +6,74 @@ Muy resumido. Pero impresionante.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12] - 22-08-2024
+
+### Corregido
+
+- Corregido `test_interfaz` y `test_ajedrez`.
+
+## [1.11] - 21-08-2024
+
+### Corregido
+
+- Corregido `test_tablero` y `test_piezas`.
+
+## [1.10] - 20-08-2024
+
+### Corregido
+
+- Corregido `tablero.py` para pasar test CodeClimate.
+- Ahora se puede ganar comiendo al rey.
+
+## [1.9] - 19-08-2024
+
+### Corregido
+
+- Corregido `piezas.py` para pasar test CodeClimate.
+
+## [1.8] - 18-08-2024
+
+### Corregido
+
+- Corregidas ubicaciones de los prints en `interfaz.py`.
+
+## [1.7] - 17-08-2024
+
+### Añadido
+
+- Archivo `test/test_ajedrez.py` creado.
+- Más funciones agregadas a `ajedrez.py`.
+
+## [1.6] - 16-08-2024
+
+### Añadido
+
+- Más funciones agregadas a `ajedrez.py`.
+
+## [1.5] - 15-08-2024
+
+### Cambiado
+
+- Funciones agregadas a `ajedrez.py`.
+
+## [1.4] - 14-08-2024
+
+### Añadido
+
+- Archivo `juego/ajedrez.py` creado.
+
+## [1.3] - 13-08-2024
+
+### Añadido
+
+- Archivo `Dockerfile` creado.
+
+### Cambiado
+
+- Readme actualizado.
+- Cambiada la forma en la que se acceden a los modulos, ahora es con `ipdb`.
+- Para ejecutar interfaz, se debe ejecutar `python -m juego.interfaz`.
+
 ## [1.2] - 10-08-2024
 
 ### Añadido
