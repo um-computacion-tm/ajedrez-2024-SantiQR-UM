@@ -13,11 +13,7 @@ La forma de ganar es que un jugador se coma el rey del otro, o que se le acaben 
 
 ### Para hacerlo funcionar:
 
-#### 1. Instalen `requirements.txt`.
-
-```
-pip install -r requirements.txt
-```
+#### 1. Necesitan _Python 3.x_.
 
 #### 2. Ejecuten los siguientes comandos desde la __terminal__:
 
@@ -25,8 +21,6 @@ pip install -r requirements.txt
 docker buildx build -t ajedrez-santiqr .
 docker run -i ajedrez-santiqr
 ```
-
-#### 3. Necesitan _Python 3.x_.
 
 
 ## :bar_chart:  Testeos

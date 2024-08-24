@@ -1,172 +1,144 @@
 # Changelog
 
-Un resumen de todos los cambios realizados en cada versión de este proyecto.
-Muy resumido. Pero impresionante.
+A summary of all the changes made in each version of this project.
+Very summarized. But impressive.
 
-El formato está basado en [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-y este proyecto se adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0] - 23-08-2024 - End of first sprint
+
+### Changed
+
+- Everything has been changed to english.
+
+### Fixed
+
+- Fixed `README.md` file.
+- Some functions.
 
 ## [1.12] - 22-08-2024
 
-### Corregido
+### Fixed
 
-- Corregido `test_interfaz` y `test_ajedrez`.
+- Fixed `test_interface` and `test_chess`.
 
 ## [1.11] - 21-08-2024
 
-### Corregido
+### Fixed
 
-- Corregido `test_tablero` y `test_piezas`.
+- Fixed `test_board` and `test_pieces`.
 
 ## [1.10] - 20-08-2024
 
-### Corregido
+## [1.10] - 20-08-2024 ## [1.10] - 20-08-2024
 
-- Corregido `tablero.py` para pasar test CodeClimate.
-- Ahora se puede ganar comiendo al rey.
+- Fixed `tableboard.py` to pass CodeClimate test.
+- Now you can win by eating the king.
 
 ## [1.9] - 19-08-2024
 
-### Corregido
+### Fixed
 
-- Corregido `piezas.py` para pasar test CodeClimate.
+- Fixed `pieces.py` to pass CodeClimate test.
 
 ## [1.8] - 18-08-2024
 
-### Corregido
+### Fixed
 
-- Corregidas ubicaciones de los prints en `interfaz.py`.
+- Fixed print locations in `interface.py`.
 
 ## [1.7] - 17-08-2024
 
-### Añadido
+### Added
 
-- Archivo `test/test_ajedrez.py` creado.
-- Más funciones agregadas a `ajedrez.py`.
+- Added `test/test_chess.py` file.
 
 ## [1.6] - 16-08-2024
 
-### Añadido
+### Added
 
-- Más funciones agregadas a `ajedrez.py`.
+- More functions added to `ajedrez.py`.
 
 ## [1.5] - 15-08-2024
 
-### Cambiado
+### Added
 
-- Funciones agregadas a `ajedrez.py`.
+- Added functions to `ajedrez.py`.
 
 ## [1.4] - 14-08-2024
 
-### Añadido
+### Added
 
-- Archivo `juego/ajedrez.py` creado.
+- Added `game/chess.py` file.
 
-## [1.3] - 13-08-2024
+## 1.3] - 13-08-2024 - First sprint started.
 
-### Añadido
+### Added
 
-- Archivo `Dockerfile` creado.
+- Dockerfile` file created.
 
-### Cambiado
+### Changed
 
-- Readme actualizado.
-- Cambiada la forma en la que se acceden a los modulos, ahora es con `ipdb`.
-- Para ejecutar interfaz, se debe ejecutar `python -m juego.interfaz`.
+- Readme updated.
+- Changed the way to access modules, now is with `ipdb`.
+- To run interface, run `python -m game.interface`.
 
 ## [1.2] - 10-08-2024
 
-### Añadido
+### Added
 
-- Instrucciones de ejecución en el archivo `README.md`.
+- Execution instructions in `README.md` file.
 
-### Cambiado
+### Changed
 
-- Dividí la función `obtener_piezas_moviles` en dos funciones y una de ellas la mandé a `interfaz.py`.
-- Diseño del `README.md` ligeramente modificado.
+- I split the `get_mobile_parts` function into two functions and one of them I sent to `interface.py`.
+- Layout of `README.md` slightly modified.
 
-### Corregido
+### Corrected
 
-- Tests corregidos en base a los cambios realizados.
+- Tests corrected based on the changes made.
 
 ## [1.1] - 09-08-2024
 
-### Cambiado
+### Changed
 
-- Modifiqué la estructura de los archivos para que se dividan en módulos.
+- Modified the structure of the files so that they are divided into modules.
 
-### Corregido
+### Fixed
 
-- Archivo `README.md` corregido.
-- Archivo `CHANGELOG.md` actualizado y corregido.
+- Corrected `README.md` file.
+- Updated and corrected `CHANGELOG.md` file.
 
-### Eliminado
+### Removed
 
-- Quitado atributo `color_casilla` de la clase `Pieza`.
+- Removed `color_box` attribute from `Piece` class.
 
-## [1.0] - 08-08-2024 - Día tres y fin :)
+## [1.0] - 08-08-2024 - Day three and end :)
 
-### Añadido
+### Added
 
-- Archivo `code/test_interfaz.py` creado.
-- Archivo `code/test_tablero.py` creado.
-- Archivo `code/test_piezas.py` creado.
-- Archivo `code/test_BD.py` creado.
+- Created `code/test_interface.py` file.
+- File `code/test_board.py` created.
+- File `code/test_pieces.py` created.
+- Created `code/test_BD.py` file.
 
-- Añadidos métodos para verificar victoria.
-- Añadidos try y except y captura de errores.
-- Hechos los tests para el 100% de cobertura.
+- Added methods to check win.
+- Added try and except and error catching.
+- Tests for 100% coverage done.
 
-### Corregido
+### Fixed
 
-- Archivo `code/interfaz.py` corregido.
-- Archivo `code/tablero.py` corregido.
-- Archivo `code/piezas.py` corregido.
-- Archivo `code/BD.py` corregido.
+- Fixed `code/interface.py` file.
+- Fixed `code/board.py` file.
+- Fixed `code/parts.py` file.
+- Fixed `code/BD.py` file.
 
-- Documentación de los tests y del código.
+- Test and code documentation.
 
-### Cambiado
+### Changed
 
-- Modifiqué los nombres de los atributos para que esten rodeados de un doble underscore "__".
-- Cambié la forma en la que se crea el tablero, haciendolo menos gráfico y
-  más legible usando loops.
-- Cambié el nombre de la clase `Casilla` por `Espacio` e hice que la clase
-  `Espacio` y `Pieza` hereden de la clase `Casilla`.
-- Cambié el funcionamiento interno de diferentes funciones.
-
-### Eliminado
-
-- Archivo `code/ideas.py` eliminado.
-- Archivo `ToDo.txt` eliminado.
-- Atributo `num` de la clase `Pieza`.
-
-## [0.2] - 07-08-2024 - Día dos
-
-### Añadido
-
-- Archivo `code/interfaz.py` creado.
-- Archivo `code/tablero.py` creado.
-- Archivo `code/piezas.py` creado.
-- Archivo `code/BD.py` creado.
-
-- Añadidas funciones generales para crear clases e instancias.
-- Añadidos métodos para obtener piezas movibles, para mover piezas, etc.
-- Añadidos métodos para hacer la actualización de la pieza en el tablero.
-- Añadido métodos de almacenamiento para guardar y cargar piezas.
-
-## [0.1] - 06-08-2024 - Día uno
-
-### Añadido
-
-- Archivo `CHANGELOG.md` creado.
-- Archivo `README.md` creado.
-- Archivo `LICENSE` creado.
-- Archivo `requirements.txt` creado.
-- Archivo `.gitignore` creado.
-- Archivo `code/ideas.py` creado.
-- Archivo `.coveragerc` creado.
-- Archivo `.coverage` creado.
-- Archivo `.codeclimate.yml` creado.
-- Carpeta `.circleci` añadida.
-- Archivo `ToDo.txt` creado.
+- Modified the attribute names so that they are surrounded by a double underscore “__”.
+- Changed the way the dashboard is created, making it less graphical and more readable using loops.
+  more readable using loops.
+- I changed the name of the class `Square` to `Space` and made it

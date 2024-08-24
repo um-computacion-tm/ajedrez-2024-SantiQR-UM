@@ -7,7 +7,10 @@ WORKDIR /ajedrez-2024-SantiQR-UM
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "coverage run -m unittest && coverage report -m && python -m juego.interfaz"]
+CMD ["sh", "-c", "coverage run -m unittest && coverage report -m && python -m game.interface"]
 
 # docker buildx build -t ajedrez-santiqr .
 # docker run -i ajedrez-santiqr
+
+# If it's building a previous version, you can use the following command:
+# docker buildx build --no-cache -t ajedrez-santiqr .
