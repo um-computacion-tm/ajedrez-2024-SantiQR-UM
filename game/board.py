@@ -1,9 +1,28 @@
-from game.pieces import *
+from game.pieces.pieces import *
+from game.pieces.pawn import *
+from game.pieces.knight import *
+from game.pieces.bishop import *
+from game.pieces.rook import *
+from game.pieces.queen import *
+from game.pieces.king import *
 from game.database import *
+
 
 class Board:
     def __init__(self):
         self.__board__, self.__DB_pieces__, self.__DB_boxes__ = self.create_initial_board()
+
+    @property
+    def board(self):
+        return self.__board__
+    
+    @property
+    def DB_pieces(self):
+        return self.__DB_pieces__
+    
+    @property
+    def DB_boxes(self):
+        return self.__DB_boxes__
 
     # Method to create the initial board.
     def create_initial_board(self):
@@ -84,8 +103,8 @@ class Board:
             board[i][0] = board[i][9] = str(9 - i) if i > 0 and i < 9 else " "
         
         # I put the pieces on the board according to their position.
-        for piece in DB_pieces.__data_base__.values():
-            x, y = piece.__position__
+        for piece in DB_pieces.data_base.values():
+            x, y = piece.position
             # Important: x and y are inverted because the board is a list of lists.
             board[y][x] = piece
         
@@ -143,8 +162,8 @@ class Board:
 
             # I append the pieces to the corresponding lists.
             if movable:
-                if result.__name__ not in pieces_list:
-                    pieces_list.append(result.__name__)
+                if result.name not in pieces_list:
+                    pieces_list.append(result.name)
                 if result not in instances_list:
                     instances_list.append(result)
                     possibilities_list.append(possibilities)
@@ -192,7 +211,7 @@ class Board:
     def check_lives_and_movements(self, piece):
         # I check if the piece is alive. If it is not, I return False and an empty list.
         # If it is alive, I return True and the list of possible movements of the piece.
-        if not piece.__lives__:
+        if not piece.lives:
             return False, []
         
         return True, piece.possible_movements()
@@ -218,7 +237,7 @@ class Board:
                 if isinstance(space, Box):
                     possibilities_checked.append(position)
                 # If the space has a piece of a different color.
-                elif isinstance(space, Piece) and space.__color__ != piece.__color__:
+                elif isinstance(space, Piece) and space.color != piece.color:
                     possibilities_checked.append(position)
             # If the piece is a pawn:
             else:
@@ -235,9 +254,9 @@ class Board:
         # It checks if the vertical movement of the pawn is valid.
         # First, it checks if it is in the possibilities and then if it is empty.
         flag = True
-        if abs(pawn.__position__[0] - x) != 0:
+        if abs(pawn.position[0] - x) != 0:
             flag = False
-        if abs(pawn.__position__[1] - y) not in [1, 2]:
+        if abs(pawn.position[1] - y) not in [1, 2]:
             flag = False
         if not isinstance(space, Box):
             flag = False
@@ -248,13 +267,13 @@ class Board:
         # It checks if the diagonal movement of the pawn is valid.
         # First, it checks if it is in the possibilities and then if there is a piece of another color.
         flag = True
-        if abs(pawn.__position__[0] - x) != 1:
+        if abs(pawn.position[0] - x) != 1:
             flag = False
-        if abs(pawn.__position__[1] - y) != 1:
+        if abs(pawn.position[1] - y) != 1:
             flag = False
         if not isinstance(space, Piece):
             flag = False
-        if space.__color__ == pawn.__color__:
+        if space.color == pawn.color:
             flag = False
         return flag
 
@@ -279,7 +298,7 @@ class Board:
             return True
 
         # Defines start and end.
-        x_start, y_start = piece.__position__
+        x_start, y_start = piece.position
         x_end, y_end = position
 
         # Defines the directions.
@@ -331,19 +350,19 @@ class Board:
         # If target is an instance of Piece, I say that it was captured.
         move_string = ""
         if isinstance(target, Piece):
-            move_string += f"\nMovement made: {piece.__color__} {piece.__name__} {x_vieja}{y_vieja}"
-            move_string += f" has captured {target.__color__} {target.__name__} in {new_position_str}\n"
+            move_string += f"\nMovement made: {piece.color} {piece.name} {x_vieja}{y_vieja}"
+            move_string += f" has captured {target.color} {target.name} in {new_position_str}\n"
         
             # I update the state of the captured piece.
-            target.__lives__ = False
+            target.kill()
         # If it is an empty space.
         else:
-            move_string += f"\nMovement made: {piece.__color__} {piece.__name__} {x_vieja}{y_vieja}"
+            move_string += f"\nMovement made: {piece.color} {piece.name} {x_vieja}{y_vieja}"
             move_string += f" has moved to {new_position_str}\n"
 
         # I update the board with the new position of the piece.
         # I take out the old coordinates.
-        x_actual, y_actual = piece.__position__
+        x_actual, y_actual = piece.position
         # I restore the space with the corresponding box.
         self.__board__[y_actual][x_actual] = self.__DB_boxes__.search\
                                                ('W' if (x_actual + y_actual) % 2 == 0 else 'B')
@@ -354,57 +373,3 @@ class Board:
         piece.move((x, y))
 
         return move_string # I return the string with the movement made.
-
-    # This is the main method to check if the game has ended.
-    def check_victory(self):
-        # I check if the game has ended.
-
-        # If its a victory by pieces, 
-        # I check if the king of each player is alive.
-        end_string, white_pieces_alive, black_pieces_alive = self.victory_by_pieces()
-
-        if end_string != "":
-            return end_string
-
-        # If its a victory by movements, 
-        # I check if there is at least one possible movement for each player.
-        white_movements = any(self.movable(piece)[0] for piece in white_pieces_alive)
-        black_movements = any(self.movable(piece)[0] for piece in black_pieces_alive)
-
-        if not white_movements and not black_movements:
-            end_string += "Draw by movements!"
-
-        elif not white_movements:
-            end_string += "The player black has won by movements!"
-
-        elif not black_movements:
-            end_string += "The player white has won by movements!"
-
-        return end_string # I return the string with the end of the game.
-    
-    # Submethod of check_victory
-    def victory_by_pieces(self):
-        # I check if the king of each player is alive.
-        white_king_alive = any(piece.__name__ == "King" and piece.__color__ == 'white' 
-                    and piece.__lives__ for piece in self.__DB_pieces__.__data_base__.values())
-        
-        black_king_alive = any(piece.__name__ == "King" and piece.__color__ == 'black'
-                    and piece.__lives__ for piece in self.__DB_pieces__.__data_base__.values())
-
-        # I create the empty string.
-        end_string = ""
-
-        if not white_king_alive:
-            end_string += "The player black has won by capturing the white king!"
-
-        if not black_king_alive:
-            end_string += "The white player has won by capturing the black king!"
-        
-        # I check each of the living pieces of each player
-        white_pieces_alive = [piece for piece in self.__DB_pieces__.__data_base__.values() if \
-                                piece.__color__ == 'white' and piece.__lives__]
-        black_pieces_alive = [piece for piece in self.__DB_pieces__.__data_base__.values() if \
-                                piece.__color__ == 'black' and piece.__lives__]
-
-        # I return the victory message and the living pieces of each player.
-        return end_string, white_pieces_alive, black_pieces_alive

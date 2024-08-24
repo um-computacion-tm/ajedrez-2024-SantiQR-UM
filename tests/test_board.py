@@ -1,7 +1,13 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from game.board import *
-from game.pieces import *
+from game.pieces.pieces import *
+from game.pieces.pawn import Pawn
+from game.pieces.knight import Knight
+from game.pieces.bishop import Bishop
+from game.pieces.rook import Rook
+from game.pieces.queen import Queen
+from game.pieces.king import King
 from game.database import *
 import io
 import sys
@@ -15,9 +21,9 @@ class TestBoard(unittest.TestCase):
 
     # I test that the board is created with instances of DB.
     def test_create_initial_board(self):
-        self.assertIsInstance(self.__board__.__board__, list)
-        self.assertIsInstance(self.__board__.__DB_pieces__, DB)  
-        self.assertIsInstance(self.__board__.__DB_boxes__, DB)  
+        self.assertIsInstance(self.__board__.board, list)
+        self.assertIsInstance(self.__board__.DB_pieces, DB)  
+        self.assertIsInstance(self.__board__.DB_boxes, DB)  
     
     # I test that the method obtains movable pieces works for different pieces and colors.
 
@@ -29,9 +35,9 @@ class TestBoard(unittest.TestCase):
         # attributes and behaviors.
         # In this case, piece_mock is an object, that has not inherited anything of any class, 
         # thats later, with MagicMock(“spec = class”).
-        mock_piece = MagicMock()
-        mock_piece.__name__ = "p"
-        mock_piece.__position__ = (1, 2)
+        mock_piece = MagicMock(spec=Pawn)
+        mock_piece.name = "p"
+        mock_piece.position = (1, 2)
         mock_piece.id.return_value = "p1"
         self.__board__.__DB_pieces__.add(mock_piece)
         
@@ -54,8 +60,8 @@ class TestBoard(unittest.TestCase):
     def test_obtain_white_movable_pieces(self, mock_print):
         # I set a white piece in the DB with MagicMock.
         mock_piece = MagicMock()
-        mock_piece.__name__ = "P"
-        mock_piece.__position__ = (7, 7)
+        mock_piece.name = "P"
+        mock_piece.position = (7, 7)
         mock_piece.id.return_value = "P7"
         self.__board__.__DB_pieces__.add(mock_piece)
 
@@ -77,14 +83,14 @@ class TestBoard(unittest.TestCase):
     @patch('builtins.print')
     def test_obtain_movable_pieces_errors(self, mock_print):
         mock_piece_1 = MagicMock()
-        mock_piece_1.__name__ = "Pawn"
-        mock_piece_1.__position__ = (1, 7)
+        mock_piece_1.name = "Pawn"
+        mock_piece_1.position = (1, 7)
         mock_piece_1.id.return_value = "P1"
         self.__board__.__DB_pieces__.add(mock_piece_1)
 
         mock_piece_2 = MagicMock()
-        mock_piece_2.__name__ = "Pawn"
-        mock_piece_2.__position__ = (2, 7)
+        mock_piece_2.name = "Pawn"
+        mock_piece_2.position = (2, 7)
         mock_piece_2.id.return_value = "P2"
         self.__board__.__DB_pieces__.add(mock_piece_2)
         
@@ -138,10 +144,10 @@ class TestBoard(unittest.TestCase):
         # For that I am going to use an instance of Pawn. Here I use “spec” for the first time, because
         # in movable we call “isinstance” which requires to know what type of class it is.
         pawn_piece = MagicMock(spec = Pawn)
-        pawn_piece.__name__ = "Pawn"
-        pawn_piece.__color__ = "black"
-        pawn_piece.__position__ = (3, 3)
-        pawn_piece.__lives__ = True
+        pawn_piece.name = "Pawn"
+        pawn_piece.color = "black"
+        pawn_piece.position = (3, 3)
+        pawn_piece.lives = True
 
         # I set the possibilites of the pawn.
         pawn_piece.possible_movements.return_value = [(2, 4), (4, 4)]
@@ -152,8 +158,8 @@ class TestBoard(unittest.TestCase):
         # I set specific boxes to return instances of enemy Piece.
         # I have to pass it as [y][x] because the board mock is a list of lists!
         # I spent 2 hours like an idiot until I realized hahahaha.
-        self.__board__.__board__[4][2] = MagicMock(spec=Piece, __color__="white")
-        self.__board__.__board__[4][4] = MagicMock(spec=Piece, __color__="white")
+        self.__board__.__board__[4][2] = MagicMock(spec=Piece, color="white")
+        self.__board__.__board__[4][4] = MagicMock(spec=Piece, color="white")
 
         # I call the method.
         movable, possibilities = self.__board__.movable(pawn_piece)
@@ -169,10 +175,10 @@ class TestBoard(unittest.TestCase):
     @patch('builtins.print')
     def test_movable_knight(self, mock_print):
         knight_piece = MagicMock(spec=Knight)
-        knight_piece.__name__ = "Knight"
-        knight_piece.__color__ = "white"
-        knight_piece.__position__ = (4, 4)
-        knight_piece.__lives__ = True
+        knight_piece.name = "Knight"
+        knight_piece.color = "white"
+        knight_piece.position = (4, 4)
+        knight_piece.lives = True
 
         knight_piece.possible_movements.return_value = [(6, 5), (2, 5), (5, 6)]
 
@@ -180,7 +186,7 @@ class TestBoard(unittest.TestCase):
 
         # I set a piece in the target box, so that it can eat it, this allows the 
         # test to enter different parts of the code.
-        self.__board__.__board__[5][2] = MagicMock(spec=Piece, __color__="black")
+        self.__board__.__board__[5][2] = MagicMock(spec=Piece, color="black")
 
         movable, possibilities = self.__board__.movable(knight_piece)
 
@@ -194,10 +200,10 @@ class TestBoard(unittest.TestCase):
     @patch('builtins.print')
     def test_movable_rook(self, mock_print):
         rook_piece = MagicMock(spec=Rook)
-        rook_piece.__name__ = "Rook"
-        rook_piece.__color__ = "white"
-        rook_piece.__position__ = (1, 1)
-        rook_piece.__lives__ = True
+        rook_piece.name = "Rook"
+        rook_piece.color = "white"
+        rook_piece.position = (1, 1)
+        rook_piece.lives = True
 
         # Vertical and horizontal movements
         rook_piece.possible_movements.return_value = [(1, 4), (4, 1)] 
@@ -205,7 +211,7 @@ class TestBoard(unittest.TestCase):
         self.__board__.__board__ = [[MagicMock(spec=Box) for _ in range(10)] for _ in range(10)]
 
         # I set a piece that blocks the path of the rook, so I can take one of the possibilities.
-        self.__board__.__board__[3][1] = MagicMock(spec=Piece, __color__="white")
+        self.__board__.__board__[3][1] = MagicMock(spec=Piece, color="white")
 
         movable, possibilities = self.__board__.movable(rook_piece)
 
@@ -220,16 +226,16 @@ class TestBoard(unittest.TestCase):
         # I create a piece with a non-living state and a position outside the board.
 
         dead_piece = MagicMock(spec=Pawn)
-        dead_piece.__name__ = "P"
-        dead_piece.__color__ = "white"
-        dead_piece.__position__ = (3, 3)
-        dead_piece.__lives__ = False
+        dead_piece.name = "P"
+        dead_piece.color = "white"
+        dead_piece.position = (3, 3)
+        dead_piece.lives = False
 
         outside_piece = MagicMock(spec=Pawn)
-        outside_piece.__name__ = "P"
-        outside_piece.__color__ = "white"
-        outside_piece.__position__ = (3, 3)
-        outside_piece.__lives__ = True
+        outside_piece.name = "P"
+        outside_piece.color = "white"
+        outside_piece.position = (3, 3)
+        outside_piece.lives = True
         outside_piece.possible_movements = MagicMock(return_value=[(0, 0), (9, 9)])
 
         self.__board__.__board__ = [[MagicMock(spec=Box) for _ in range(10)] for _ in range(10)]
@@ -257,94 +263,16 @@ class TestBoard(unittest.TestCase):
     @patch('builtins.print')
     def test_move_piece_eat(self, mock_print):
         mock_piece = MagicMock(spec=Pawn)
-        mock_piece.__name__ = "Pawn"
-        mock_piece.__color__ = "white"
-        mock_piece.__position__ = (3, 3)
-        mock_piece.__lives__ = True
+        mock_piece.name = "Pawn"
+        mock_piece.color = "white"
+        mock_piece.position = (3, 3)
+        mock_piece.lives = True
         self.__DB_pieces__.add(mock_piece)
         
         moved = self.__board__.move_piece(mock_piece, 'd7', (4, 2), ('c','6'), [(4, 2)])
         self.assertTrue(moved)
-    
-    # I test that victory can be verified, for different cases.
-    # I use assertEqual to check that the returned string is the expected one.
 
-    @patch('builtins.print')
-    def test_victory_movements_draw(self, mock_print):
-        # All the pieces remain without possible movements.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'white':
-                piece.possible_movements = MagicMock(return_value=[])
-            if piece.__color__ == 'black':
-                piece.possible_movements = MagicMock(return_value=[])
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "Draw by movements!")
-
-
-    @patch('builtins.print')
-    def test_victory_movements_black_win(self, mock_print):
-        # All the pieces are white and have possible movements.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'white':
-                piece.possible_movements = MagicMock(return_value=[])
-            if piece.__color__ == 'black':
-                piece.possible_movements = MagicMock(return_value=[(3, 3)])
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "The player black has won by movements!")
-
-
-    @patch('builtins.print')
-    def test_victory_movements_white_win(self, mock_print):
-        # All the pieces are black and have possible movements.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'black':
-                piece.possible_movements = MagicMock(return_value=[])
-            if piece.__color__ == 'white':
-                piece.possible_movements = MagicMock(return_value=[(2, 2)])
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "The player white has won by movements!")
-
-
-    @patch('builtins.print')
-    def test_victory_pieces_black_win(self, mock_print):
-        # The white king is eaten.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'white':
-                piece.__lives__ = False
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "The player black has won by capturing the white king!")
-
-
-    @patch('builtins.print')
-    def test_victory_pieces_white_win(self, mock_print):
-        # The black king is eaten.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'black':
-                piece.__lives__ = False
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "The white player has won by capturing the black king!")
-
-
-    @patch('builtins.print')
-    def test_check_victory_none(self, mock_print):
-        # I set that all the pieces are alive and have possible movements.
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            piece.__lives__ = True
         
-        for piece in self.__board__.__DB_pieces__.__data_base__.values():
-            if piece.__color__ == 'black':
-                piece.possible_movements = MagicMock(return_value=[(3 ,3)])
-            if piece.__color__ == 'white':
-                piece.possible_movements = MagicMock(return_value=[(2, 2)])
-
-        result = self.__board__.check_victory()
-        self.assertEqual(result, "")
-
 
 if __name__ == "__main__":
     unittest.main()

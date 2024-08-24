@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0] - 23-08-2024 - End of first sprint
 
+### Added
+
+- Added getters and setters.
+- Added files for each piece.
+- Added piece module.
+
+### Fixed
+
+- Fixed errors in all files.
+- 0 issues in CodeClimate.
+- Fixed duplications.
+- Fixed parameter related issues.
+
+## [2.0] - 23-08-2024 - End of first sprint
+
 ### Changed
 
 - Everything has been changed to english.

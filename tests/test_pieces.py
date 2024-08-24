@@ -1,5 +1,11 @@
 import unittest
-from game.pieces import *
+from game.pieces.pieces import *
+from game.pieces.pawn import *
+from game.pieces.knight import *
+from game.pieces.bishop import *
+from game.pieces.rook import *
+from game.pieces.queen import *
+from game.pieces.king import *
 
 class TestPieces(unittest.TestCase):
 
@@ -9,7 +15,7 @@ class TestPieces(unittest.TestCase):
         self.__pawn2__ = Pawn("P2", "white", (2, 7), "Pawn", False)
         self.__pawn3__ = Pawn("p1", "black", (1, 2), "Pawn")
         self.__pawn4__ = Pawn("p2", "black", (2, 2), "Pawn", False)
-        self.__knight__ = Knight("H1", "white", (2, 8), "Knight", 1)
+        self.__knight__ = Knight("H1", "white", (2, 8), "Knight")
         self.__bishop__ = Bishop("B1", "white", (3, 8), "Bishop")
         self.__rook__ = Rook("R1", "white", (1, 8), "Rook")
         self.__queen__ = Queen("Q1", "white", (4, 8), "Queen")
@@ -25,6 +31,7 @@ class TestPieces(unittest.TestCase):
     
     def test_pawn_white_posterior_possible_movements(self):
         possible_movements = self.__pawn2__.possible_movements()
+        self.assertEqual(self.__pawn2__.first_move, False)
         self.assertIn((2, 6), possible_movements)
 
     def test_pawn_black_inicial_possible_movements(self):
@@ -61,12 +68,12 @@ class TestPieces(unittest.TestCase):
         x, y = (3, 6)
         self.__knight__.move((x, y))
         # I check that the position of the piece has been updated.
-        self.assertEqual(self.__knight__.__position__, (x, y))
+        self.assertEqual(self.__knight__.position, (x, y))
     
     def test_move_pawn(self):
         x, y = (1, 6)
         self.__pawn__.move((x, y))
-        self.assertEqual(self.__pawn__.__position__, (x, y))
+        self.assertEqual(self.__pawn__.position, (x, y))
 
 if __name__ == "__main__":
     unittest.main()

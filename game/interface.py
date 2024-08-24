@@ -6,7 +6,7 @@ class Game:
     def __init__(self):
         # I initialize an instance of the Chess class.
         self.__chess__ = Chess()
-
+        
 
     def main(self):
         # This is the main loop of the game.
@@ -38,7 +38,7 @@ class Game:
             # I show the board with its pieces.
             UserInterface.print_board(self.__chess__)
 
-            print("\n1. Move piece (" + self.__chess__.__turn__ + "'s turn)")
+            print("\n1. Move piece (" + self.__chess__.turn + "'s turn)")
             print("2. End game (Draw)")
             action = input("\nSelect an option: ")
 
@@ -78,7 +78,7 @@ class Game:
             # Muestro las opciones de piezas.
             print("\nOptions:")
             num = 1
-            for piece in self.__chess__.__pieces_list__:
+            for piece in self.__chess__.pieces_list:
                 print(f"{num}. {piece}")
                 num += 1
 
@@ -106,18 +106,18 @@ class Game:
         print("\nInstances of the piece:")
         count = 1
         select = []
-        for num in range(len(self.__chess__.__instances_list__)):
+        for num in range(len(self.__chess__.instances_list)):
 
             # If the selected piece is equal to the piece in the instance list, I show it.
-            if self.__chess__.__pieces_list__[option-1] == \
-                self.__chess__.__instances_list__[num].__name__:
+            if self.__chess__.pieces_list[option-1] == \
+                self.__chess__.instances_list[num].name:
 
                 # I convert the coordinates from numeric format to chess format.
                 x, y = UserInterface.coordinates_conversion\
-                    (self.__chess__.__instances_list__[num].__position__)
+                    (self.__chess__.instances_list[num].position)
                 
                 # I show the instances of the piece.
-                print(f"{count}. {self.__chess__.__instances_list__[num].__name__} {x}{y}")
+                print(f"{count}. {self.__chess__.instances_list[num].name} {x}{y}")
 
                 # I save the instances in a list to be able to select them.
                 select.append(num)
@@ -141,11 +141,11 @@ class Game:
             num_instance = select[option_2-1]
 
             # I look for the final movement possibilities of the piece.
-            final_possibilities = self.__chess__.__possibilities_list__[num_instance]
+            final_possibilities = self.__chess__.possibilities_list[num_instance]
 
             # I search for the selected piece instance.
-            selection = self.__chess__.__board__.__DB_pieces__.search(\
-                self.__chess__.__instances_list__[num_instance].id())
+            selection = self.__chess__.board.DB_pieces.search(\
+                self.__chess__.instances_list[num_instance].id)
             
             # I ask for the new position.
             new_position = input("Type the new position (eg. 'a3'): ")
@@ -170,7 +170,7 @@ class Game:
         new_position_int = position
 
         # I convert the coordinates from numeric format to chess format.
-        position = UserInterface.coordinates_conversion(selection.__position__)
+        position = UserInterface.coordinates_conversion(selection.position)
         # I check if the entered option is valid.
         if not position:
             return False
