@@ -118,9 +118,9 @@ class TestInterface(unittest.TestCase):
     def test_move_piece(self, mock_print,  mock_input):
 
         selection = MagicMock(spec = Pawn)
-        selection.__position__ = (1, 7)
-        selection.__name__ = 'Pawn'
-        selection.__color__ = 'white'
+        selection.position = (1, 7)
+        selection.name = 'Pawn'
+        selection.color = 'white'
         final_possibilities = [(1, 6)]
         result = self.__game__.move(selection, 'a3', final_possibilities)
 
@@ -132,15 +132,15 @@ class TestInterface(unittest.TestCase):
     def test_mover_errores(self, mock_print,  mock_input):
 
         selection = MagicMock(spec = Pawn)
-        selection.__position__ = (1, 7)
-        selection.__name__ = 'Pawn'
-        selection.__color__ = 'white'
+        selection.position = (1, 7)
+        selection.name = 'Pawn'
+        selection.color = 'white'
         final_possibilities = [(1, 6)]
 
         seleccion_error = MagicMock(spec = Pawn)
-        seleccion_error.__position__ = (1)
-        seleccion_error.__name__ = 'Pawn'
-        seleccion_error.__color__ = 'white'
+        seleccion_error.position = (1)
+        seleccion_error.name = 'Pawn'
+        seleccion_error.color = 'white'
         posibilidades_finales_error = [(1, 6)]
         
         result = self.__game__.move(selection, 'a6', final_possibilities)

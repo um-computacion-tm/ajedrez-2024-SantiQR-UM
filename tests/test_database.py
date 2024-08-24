@@ -1,21 +1,22 @@
 import unittest
 from game.database import *
-from game.pieces import *
-from game.pieces import *
+from game.pieces.pieces import *
+from game.pieces.pawn import *
+
 
 class TestDatabase(unittest.TestCase):
 
     def setUp(self):
         self.__db__ = DB()
         self.__pawn__ = Pawn("P1", "white", (1, 7), "Pawn")
-        self.__box__ = Box("B" , "black", u"\u25A0")
+        self.__box__ = Box("B" , "black")
         self.__db__.add(self.__pawn__)
         self.__db__.add(self.__box__)
 
     # I test adding a piece.
     def test_add(self):
         # With assertIn I check that the piece is in the DB.
-        self.assertIn("P1", self.__db__.__data_base__)
+        self.assertIn("P1", self.__db__.data_base)
 
     # I test searching for a piece.
     def test_search(self):
