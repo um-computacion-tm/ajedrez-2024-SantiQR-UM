@@ -5,8 +5,8 @@ class Knight(Piece):
         super().__init__(id, color, position, name)
 
     # To return the symbol of the box.
-    def __str__(self):
-        return "♘" if self.__color__ == "white" else "♞"
+    __white_str__ = "♘"
+    __black_str__ = "♞"
         
     # Función especializada para el caballo.
     def possible_movements(self):
