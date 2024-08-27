@@ -11,15 +11,24 @@ El juego es un juego de ajedrez de dos jugadores común y corriente, salvo por e
 
 La forma de ganar es que un jugador se coma el rey del otro, o que se le acaben las posibilidades de mover a cualquiera, es decir, tablas. Tienen agregada una funcionalidad para que en cualquier momento puedan empatar la partida.
 
-### Para hacerlo funcionar:
+### Para hacerlo funcionar ejecuten los siguientes comandos desde la __terminal__:
 
-#### 1. Necesitan _Python 3.x_.
-
-#### 2. Ejecuten los siguientes comandos desde la __terminal__:
+#### 1. Para instalar docker:
 
 ```
-docker buildx build -t ajedrez-santiqr .
-docker run -i ajedrez-santiqr
+$ sudo apt install docker
+```
+
+#### 2. Para crear la imagen de docker con el juego:
+
+```
+$ sudo docker buildx build --no-cache -t ajedrez-santiqr .
+```
+
+#### 3. Para ejecutar los tests y el juego:
+
+```
+$ sudo docker run -i ajedrez-santiqr
 ```
 
 

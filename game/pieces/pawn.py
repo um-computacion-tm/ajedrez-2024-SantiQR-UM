@@ -1,4 +1,5 @@
 from game.pieces.pieces import Piece
+from game import COLOR_WHITE
 
 class Pawn(Piece):
     def __init__(self, id, color, position, name, first_move = True):
@@ -26,7 +27,7 @@ class Pawn(Piece):
         
         # Here I don't use the 'calculate_movements' function because the movements are specific.
         # I define the advance according to the color.
-        doble_advance, simple_advance = (-2, -1) if self.__color__ == "white" else (2, 1)
+        doble_advance, simple_advance = (-2, -1) if self.__color__ == COLOR_WHITE else (2, 1)
 
         # If first move is True, it can move two squares.
         if self.__first_move__ and 1 <= y + doble_advance <= 8:
@@ -41,7 +42,7 @@ class Pawn(Piece):
 
     def capture_movements(self):
         # I define the diagonal movements according to the color.
-        movements = [(-1, -1), (1, -1)] if self.__color__ == "white" else [(-1, 1), (1, 1)]
+        movements = [(-1, -1), (1, -1)] if self.__color__ == COLOR_WHITE else [(-1, 1), (1, 1)]
         # In this case I use the 'calculate_movements' function with 'limit' as True.
         limit = True
         return self.calculate_movements(self.__position__, movements, limit)

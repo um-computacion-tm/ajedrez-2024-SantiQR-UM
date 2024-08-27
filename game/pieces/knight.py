@@ -1,13 +1,10 @@
 from game.pieces.pieces import Piece
 
 class Knight(Piece):
-    def __init__(self, id, color, position, name):
-        super().__init__(id, color, position, name)
-
     # To return the symbol of the box.
     __white_str__ = "♘"
     __black_str__ = "♞"
-        
+
     # Función especializada para el caballo.
     def possible_movements(self):
         movements = [
