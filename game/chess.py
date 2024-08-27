@@ -1,11 +1,12 @@
 from game.board import *
+from game import COLOR_WHITE, COLOR_BLACK
 
 # This is the facade of the game, this class is only useful to redirect parameters and data.
 # And to change the turn of the players.
 class Chess:
     def __init__(self):
         self.__board__ = Board()
-        self.__turn__ = "white"
+        self.__turn__ = COLOR_WHITE
         self.__pieces_list__ = None
         self.__instances_list__ = None
         self.__possibilities_list__ = None
@@ -32,7 +33,7 @@ class Chess:
 
     # There isnt much explanation needed for this, right?
     def change_turn(self):
-        self.__turn__ = "black" if self.__turn__ == "white" else "white"
+        self.__turn__ = COLOR_BLACK if self.__turn__ == COLOR_WHITE else COLOR_WHITE
 
     # This function is responsible for finding the pieces that can be moved.
     def play(self):

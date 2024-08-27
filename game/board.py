@@ -6,6 +6,7 @@ from game.pieces.rook import *
 from game.pieces.queen import *
 from game.pieces.king import *
 from game.database import *
+from game import COLOR_WHITE, COLOR_BLACK
 
 
 class Board:
@@ -27,49 +28,19 @@ class Board:
     # Method to create the initial board.
     def create_initial_board(self):
         # I create the pieces and boxes:
+        
+        # Pieces.
+        info_pieces = []
 
         # White pieces.
-        info_pieces = [
-        ("P1" , "white", (1,7), "Pawn"), # ♙
-        ("P2" , "white", (2,7), "Pawn"), # ♙
-        ("P3" , "white", (3,7), "Pawn"), # ♙
-        ("P4" , "white", (4,7), "Pawn"), # ♙
-        ("P5" , "white", (5,7), "Pawn"), # ♙
-        ("P6" , "white", (6,7), "Pawn"), # ♙
-        ("P7" , "white", (7,7), "Pawn"), # ♙
-        ("P8" , "white", (8,7), "Pawn"), # ♙
-        ("H1" , "white", (2,8), "Knight"), # ♘
-        ("H2" , "white", (7,8), "Knight"), # ♘
-        ("B1" , "white", (3,8), "Bishop"), # ♗
-        ("B2" , "white", (6,8), "Bishop"), # ♗
-        ("R1" , "white", (1,8), "Rook"), # ♖
-        ("R2" , "white", (8,8), "Rook"), # ♖
-        ("Q1" , "white", (4,8), "Queen"), # ♕
-        ("K1" , "white", (5,8), "King"), # ♔
-        
+        self.put_pieces_in_lists(info_pieces, COLOR_WHITE)
         # Black pieces.
-        ("p1" , "black", (1,2), "Pawn"), # ♟
-        ("p2" , "black", (2,2), "Pawn"), # ♟
-        ("p3" , "black", (3,2), "Pawn"), # ♟                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("p4" , "black", (4,2), "Pawn"), # ♟
-        ("p5" , "black", (5,2), "Pawn"), # ♟
-        ("p6" , "black", (6,2), "Pawn"), # ♟
-        ("p7" , "black", (7,2), "Pawn"), # ♟
-        ("p8" , "black", (8,2), "Pawn"), # ♟
-        ("h1" , "black", (2,1), "Knight"), # ♞
-        ("h2" , "black", (7,1), "Knight"), # ♞                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-        ("b1" , "black", (3,1), "Bishop"), # ♝
-        ("b2" , "black", (6,1), "Bishop"), # ♝                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        ("r1" , "black", (1,1), "Rook"), # ♜
-        ("r2" , "black", (8,1), "Rook"), # ♜
-        ("q1" , "black", (4,1), "Queen"), # ♛
-        ("k1" , "black", (5,1), "King") # ♚
-        ]
+        self.put_pieces_in_lists(info_pieces, COLOR_BLACK)
         
         # Boxes.
         info_boxes = [
-        ("W" , "white"), # White box □
-        ("B" , "black") # Black box ■
+        ("W" , COLOR_WHITE), # White box □
+        ("B" , COLOR_BLACK) # Black box ■
         ]
         
         # I create the databases.
@@ -116,6 +87,28 @@ class Board:
         
         # I return the board and the DBs for the interface.
         return board, DB_pieces, DB_boxes
+    
+    # Method to put the pieces in the lists.
+    def put_pieces_in_lists(self, info_pieces, color):
+        if color == COLOR_WHITE:
+            row_pawn = 7
+            row_special = 8
+            pawn_letter = "P"
+            special_letter = ("R", "H", "B", "Q", "K", "B", "H", "R")
+        else:
+            row_pawn = 2
+            row_special = 1
+            pawn_letter = "p"
+            special_letter = ("r", "h", "b", "q", "k", "b", "h", "r")
+
+        for num in range(8):
+            info_pieces.append((f"{pawn_letter}{num+1}" , color, (num+1, row_pawn), "Pawn"))
+        
+        special_pieces = ("Rook", "Knight", "Bishop", "Queen", "King", "Bishop", "Knight", "Rook")
+        special_number = (1, 1, 1, 1, 1, 2, 2, 2)
+        
+        for num in range(len(special_pieces)):  
+            info_pieces.append((f"{special_letter[num]}{special_number[num]}" , color, (num+1,row_special), special_pieces[num]))
     
     # Method to convert the board into a string.
     def __str__(self):
@@ -176,7 +169,7 @@ class Board:
         for start, end, white_letter, black_letter in pieces:
             if start <= num <= end:
                 count = num - start + 1
-                letter = white_letter if color == "white" else black_letter
+                letter = white_letter if color == COLOR_WHITE else black_letter
                 return letter, count
 
     # Method to get the movable instances of the pieces.

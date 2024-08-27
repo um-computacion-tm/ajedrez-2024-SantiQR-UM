@@ -1,3 +1,4 @@
+from game import COLOR_WHITE
 # I only use it to start Piece and Space.
 class Space:
     def __init__(self, id, color):
@@ -14,7 +15,7 @@ class Space:
         return self.__id__
     
     def __str__(self):
-        return self.__white_str__ if self.__color__ == "white" else self.__black_str__
+        return self.__white_str__ if self.__color__ == COLOR_WHITE else self.__black_str__
 
 
 class Box(Space):
@@ -53,24 +54,8 @@ class Piece(Space):
         self.__position__ = new_position
         
     # Method base to get the possibilities of movements.
-    def possible_movements(self):
-        diagonals = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
-        non_diagonals = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-        
-        name = self.__name__
-
-        if name == "Bishop":
-            directions = diagonals
-        elif name == "Rook":
-            directions = non_diagonals
-        elif name == "Queen":
-            directions = diagonals + non_diagonals
-        elif name == "King":
-            directions = diagonals + non_diagonals
-            limit = True
-            return self.calculate_movements(self.__position__, directions, limit)
-        
-        return self.calculate_movements(self.__position__, directions)
+    def possible_movements(self):        
+        return self.calculate_movements(self.__position__, self.directions)
 
     # Common function to calculate movements based on directions and individual movements.
     def calculate_movements(self, position, movements, limit = False):
