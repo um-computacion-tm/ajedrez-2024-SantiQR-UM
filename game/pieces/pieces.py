@@ -12,6 +12,9 @@ class Space:
     @property
     def id(self):
         return self.__id__
+    
+    def __str__(self):
+        return self.__white_str__ if self.__color__ == "white" else self.__black_str__
 
 
 class Box(Space):
@@ -19,11 +22,8 @@ class Box(Space):
         super().__init__(id, color)
 
     # To return the symbol of the box.
-    def __str__(self):
-        if self.__color__ == "white":
-            return u"\u25A1"
-        else:
-            return u"\u25A0"
+    __white_str__ = "□"
+    __black_str__ = "■"
 
 
 class Piece(Space):
@@ -47,9 +47,6 @@ class Piece(Space):
     
     def kill(self):
         self.__lives__ = False
-
-    def __str__(self):
-        return self.__white_str__ if self.__color__ == "white" else self.__black_str__
 
     # It updates the position of the piece.
     def move(self, new_position):
