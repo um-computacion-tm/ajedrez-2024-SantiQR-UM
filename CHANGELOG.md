@@ -93,7 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added `game/chess.py` file.
 
-## 1.3] - 13-08-2024 - First sprint started.
+## [1.3] - 13-08-2024 - First sprint started.
 
 ### Added
 

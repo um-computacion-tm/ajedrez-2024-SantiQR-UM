@@ -365,7 +365,7 @@ class Board:
         x_actual, y_actual = piece.position
         # I restore the space with the corresponding box.
         self.__board__[y_actual][x_actual] = self.__DB_boxes__.search\
-                                               ('W' if (x_actual + y_actual) % 2 == 0 else 'B')
+                                            ('W' if (x_actual + y_actual) % 2 == 0 else 'B')
         # I place the piece in its new position.
         self.__board__[y][x] = piece  
 
