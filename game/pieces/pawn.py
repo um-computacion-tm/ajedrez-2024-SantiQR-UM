@@ -11,8 +11,8 @@ class Pawn(Piece):
         return self.__first_move__
     
     # To return the symbol of the box.
-    def __str__(self):
-        return "♙" if self.__color__ == "white" else "♟"
+    __white_str__ = "♙"
+    __black_str__ = "♟"
 
 
     def possible_movements(self):
